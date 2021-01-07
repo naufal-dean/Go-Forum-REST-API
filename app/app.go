@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/naufal-dean/onboarding-dean-local/app/core"
+	"github.com/naufal-dean/onboarding-dean-local/app/model/orm"
 	"github.com/naufal-dean/onboarding-dean-local/app/route"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -33,7 +34,7 @@ func initAppDB() {
 	// Save to app.DB
 	app.DB = db
 	// Setup auto migrate
-	err = app.DB.AutoMigrate()
+	err = app.DB.AutoMigrate(orm.Models...)
 	if err != nil {
 		log.Fatal("Database setup failed")
 	}
