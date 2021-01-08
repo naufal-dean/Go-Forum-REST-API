@@ -5,8 +5,8 @@ import (
 	"net/http"
 )
 
-func Hello(a *core.App) http.HandlerFunc {
-    return func(w http.ResponseWriter, r *http.Request) {
-        w.Write([]byte("Hello World"))
-    }
+func Hello(a *core.App) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Hello World"))
+    })
 }
