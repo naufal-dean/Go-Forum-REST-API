@@ -9,6 +9,7 @@ import (
 
 func Setup(a *core.App) {
 	a.Router.Use(middleware.ErrorHandler)
+	a.Router.Use(middleware.Logger)
 
 	a.Router.Handle("/hello", controller.Hello(a))
 	v1.Setup(a)
