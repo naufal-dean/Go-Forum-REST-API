@@ -1,9 +1,8 @@
 package orm
 
-import "gorm.io/gorm"
-
 type Thread struct {
-	gorm.Model
-	Name string `gorm:"not null" json:"name"`
-	UserID  int    `json:"user_id"`
+	BaseModel
+	Name   string `gorm:"not null" json:"name"`
+	UserID uint   `json:"user_id"`
+	Posts  []Post
 }

@@ -10,9 +10,10 @@ import (
 )
 
 type CreateInput struct {
-	Title   string `json:"title"`
-	Content string `json:"content"`
-	UserID  int    `json:"user_id"` // TODO: remove
+	Title    string `json:"title"`
+	Content  string `json:"content"`
+	UserID   uint   `json:"user_id"` // TODO: remove
+	ThreadID uint   `json:"thread_id"`
 }
 
 func Create(a *core.App) http.Handler {
@@ -27,7 +28,7 @@ func Create(a *core.App) http.Handler {
 
 		// Create record
 		// TODO: get user id from auth
-		post := orm.Post{Title: input.Title, Content: input.Content, UserID: input.UserID}
+		post := orm.Post{Title: input.Title, Content: input.Content, UserID: input.UserID, ThreadID: input.ThreadID}
 		if err := a.DB.Create(&post).Error;
 			err != nil {
 			response.JSON(w, http.StatusInternalServerError, data.CustomError("Create post failed"))

@@ -11,7 +11,7 @@ import (
 
 type CreateInput struct {
 	Name   string `json:"name"`
-	UserID int    `json:"user_id"` // TODO: remove
+	UserID uint    `json:"user_id"` // TODO: remove
 }
 
 func Create(a *core.App) http.Handler {
