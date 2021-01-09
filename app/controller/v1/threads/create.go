@@ -3,15 +3,16 @@ package threads
 import (
 	"encoding/json"
 	"github.com/naufal-dean/onboarding-dean-local/app/core"
+	"github.com/naufal-dean/onboarding-dean-local/app/lib/auth"
 	"github.com/naufal-dean/onboarding-dean-local/app/model/data"
 	"github.com/naufal-dean/onboarding-dean-local/app/model/orm"
 	"github.com/naufal-dean/onboarding-dean-local/app/response"
+	"github.com/pkg/errors"
 	"net/http"
 )
 
 type CreateInput struct {
 	Name   string `json:"name"`
-	UserID uint    `json:"user_id"` // TODO: remove
 }
 
 func Create(a *core.App) http.Handler {
@@ -24,9 +25,14 @@ func Create(a *core.App) http.Handler {
 		}
 		defer r.Body.Close()
 
+		// Get claims context
+		claims, ok := r.Context().Value("claims").(*auth.TokenClaims)
+		if !ok {
+			panic(errors.New("invalid claims context"))
+		}
+
 		// Create record
-		// TODO: get user id from auth
-		thread := orm.Thread{Name: input.Name, UserID: input.UserID}
+		thread := orm.Thread{Name: input.Name, UserID: claims.UserID}
 		if err := a.DB.Create(&thread).Error;
 			err != nil {
 			response.JSON(w, http.StatusInternalServerError, data.CustomError("Create thread failed"))

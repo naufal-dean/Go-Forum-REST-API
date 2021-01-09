@@ -3,16 +3,17 @@ package posts
 import (
 	"encoding/json"
 	"github.com/naufal-dean/onboarding-dean-local/app/core"
+	"github.com/naufal-dean/onboarding-dean-local/app/lib/auth"
 	"github.com/naufal-dean/onboarding-dean-local/app/model/data"
 	"github.com/naufal-dean/onboarding-dean-local/app/model/orm"
 	"github.com/naufal-dean/onboarding-dean-local/app/response"
+	"github.com/pkg/errors"
 	"net/http"
 )
 
 type CreateInput struct {
 	Title    string `json:"title"`
 	Content  string `json:"content"`
-	UserID   uint   `json:"user_id"` // TODO: remove
 	ThreadID uint   `json:"thread_id"`
 }
 
@@ -26,9 +27,14 @@ func Create(a *core.App) http.Handler {
 		}
 		defer r.Body.Close()
 
+		// Get claims context
+		claims, ok := r.Context().Value("claims").(*auth.TokenClaims)
+		if !ok {
+			panic(errors.New("invalid claims context"))
+		}
+
 		// Create record
-		// TODO: get user id from auth
-		post := orm.Post{Title: input.Title, Content: input.Content, UserID: input.UserID, ThreadID: input.ThreadID}
+		post := orm.Post{Title: input.Title, Content: input.Content, UserID: claims.UserID, ThreadID: input.ThreadID}
 		if err := a.DB.Create(&post).Error;
 			err != nil {
 			response.JSON(w, http.StatusInternalServerError, data.CustomError("Create post failed"))
