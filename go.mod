@@ -5,6 +5,7 @@ go 1.15
 require (
 	github.com/bxcodec/faker/v3 v3.5.0 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+	github.com/google/uuid v1.1.4 // indirect
 	github.com/gorilla/mux v1.8.0
 	github.com/jackc/pgproto3/v2 v2.0.7 // indirect
 	github.com/jarcoal/httpmock v1.0.7 // indirect
