@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"github.com/naufal-dean/onboarding-dean-local/app/core"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
 	"net/http"
 )
 

@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/joho/godotenv"
-	"github.com/naufal-dean/onboarding-dean-local/app"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app"
 	"log"
 )
 

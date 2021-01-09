@@ -1,4 +1,4 @@
-module github.com/naufal-dean/onboarding-dean-local
+module gitlab.com/pinvest/internships/hydra/onboarding-dean
 
 go 1.15
 

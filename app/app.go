@@ -4,9 +4,9 @@ package app
 import (
 	"fmt"
 	"github.com/gorilla/mux"
-	"github.com/naufal-dean/onboarding-dean-local/app/core"
-	"github.com/naufal-dean/onboarding-dean-local/app/model/orm"
-	"github.com/naufal-dean/onboarding-dean-local/app/route"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/route"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"

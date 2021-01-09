@@ -1,11 +1,11 @@
 package v1
 
 import (
-	"github.com/naufal-dean/onboarding-dean-local/app/controller/v1/auth"
-	"github.com/naufal-dean/onboarding-dean-local/app/controller/v1/posts"
-	"github.com/naufal-dean/onboarding-dean-local/app/controller/v1/threads"
-	"github.com/naufal-dean/onboarding-dean-local/app/core"
-	"github.com/naufal-dean/onboarding-dean-local/app/middleware"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/controller/v1/auth"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/controller/v1/posts"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/controller/v1/threads"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/middleware"
 )
 
 func Setup(a *core.App) {

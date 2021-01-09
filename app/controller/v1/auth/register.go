@@ -2,10 +2,10 @@ package auth
 
 import (
 	"encoding/json"
-	"github.com/naufal-dean/onboarding-dean-local/app/core"
-	"github.com/naufal-dean/onboarding-dean-local/app/model/data"
-	"github.com/naufal-dean/onboarding-dean-local/app/model/orm"
-	"github.com/naufal-dean/onboarding-dean-local/app/response"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/data"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
 	"net/http"
 )
 

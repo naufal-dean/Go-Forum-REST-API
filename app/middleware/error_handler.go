@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"github.com/naufal-dean/onboarding-dean-local/app/model/data"
-	"github.com/naufal-dean/onboarding-dean-local/app/response"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/data"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
 	"log"
 	"net/http"
 )

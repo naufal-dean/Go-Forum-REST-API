@@ -2,11 +2,11 @@ version: '3'
 
 services:
 
-  onboarding-dean-local-database:
+  onboarding-dean-database:
     image: "postgres"
-    container_name: onboarding-dean-local-database
+    container_name: onboarding-dean-database
     volumes:
-      - onboarding-dean-local-data:/var/lib/postgresql/data
+      - onboarding-dean-data:/var/lib/postgresql/data
     ports:
       - 5432:5432
     environment:
@@ -19,18 +19,18 @@ services:
       timeout: 5s
       retries: 5
 
-  onboarding-dean-local-app:
+  onboarding-dean-app:
     build: .
-    container_name: onboarding-dean-local-app
+    container_name: onboarding-dean-app
     environment:
-      - DB_HOST=onboarding-dean-local-database
+      - DB_HOST=onboarding-dean-database
     ports:
       - 8080:8080
     depends_on:
-      onboarding-dean-local-database:
+      onboarding-dean-database:
         condition: service_healthy
     links:
-      - onboarding-dean-local-database
+      - onboarding-dean-database
 
 volumes:
-  onboarding-dean-local-data:
+  onboarding-dean-data:

@@ -1,10 +1,10 @@
 package route
 
 import (
-	"github.com/naufal-dean/onboarding-dean-local/app/controller"
-	"github.com/naufal-dean/onboarding-dean-local/app/core"
-	"github.com/naufal-dean/onboarding-dean-local/app/middleware"
-	v1 "github.com/naufal-dean/onboarding-dean-local/app/route/v1"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/controller"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/middleware"
+	v1 "gitlab.com/pinvest/internships/hydra/onboarding-dean/app/route/v1"
 )
 
 func Setup(a *core.App) {
