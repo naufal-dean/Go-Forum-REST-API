@@ -5,19 +5,27 @@ import (
 	"github.com/naufal-dean/onboarding-dean-local/app/controller/v1/posts"
 	"github.com/naufal-dean/onboarding-dean-local/app/controller/v1/threads"
 	"github.com/naufal-dean/onboarding-dean-local/app/core"
+	"github.com/naufal-dean/onboarding-dean-local/app/middleware"
 )
 
 func Setup(a *core.App) {
-	// Get subrouter
-	v1 := a.Router.PathPrefix("/api/v1").Subrouter()
+	// Open routes start
+	v1OpenR := a.Router.PathPrefix("/api/v1").Subrouter()
 
 	// Auth routes
-	v1.Handle("/register", auth.Register(a)).Methods("POST")
-	v1.Handle("/login", auth.Login(a)).Methods("POST")
-	v1.Handle("/logout", auth.Logout(a)).Methods("POST")
+	v1OpenR.Handle("/register", auth.Register(a)).Methods("POST")
+	v1OpenR.Handle("/login", auth.Login(a)).Methods("POST")
+
+
+	// Authenticated routes start
+	v1AuthR := a.Router.PathPrefix("/api/v1").Subrouter()
+	v1AuthR.Use(middleware.Auth(a))
+
+	// Auth routes
+	v1AuthR.Handle("/logout", auth.Logout(a)).Methods("POST")
 
 	// Thread resource routes
-	threadsR := v1.PathPrefix("/threads").Subrouter()
+	threadsR := v1AuthR.PathPrefix("/threads").Subrouter()
 	threadsR.Handle("", threads.Create(a)).Methods("POST")
 	threadsR.Handle("", threads.GetAll(a)).Methods("GET")
 	threadsR.Handle("/{id}", threads.GetOne(a)).Methods("GET")
@@ -25,7 +33,7 @@ func Setup(a *core.App) {
 	threadsR.Handle("/{id}", threads.Delete(a)).Methods("DELETE")
 
 	// Posts resource routes
-	postsR := v1.PathPrefix("/posts").Subrouter()
+	postsR := v1AuthR.PathPrefix("/posts").Subrouter()
 	postsR.Handle("", posts.Create(a)).Methods("POST")
 	postsR.Handle("", posts.GetAll(a)).Methods("GET")
 	postsR.Handle("/{id}", posts.GetOne(a)).Methods("GET")
