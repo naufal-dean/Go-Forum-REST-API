@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+
+  onboarding-dean-local-database:
+    image: "postgres"
+    container_name: onboarding-dean-local-database
+    volumes:
+      - onboarding-dean-local-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DBNAME}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  onboarding-dean-local-app:
+    build: .
+    container_name: onboarding-dean-local-app
+    environment:
+      - DB_HOST=onboarding-dean-local-database
+    ports:
+      - 8080:8080
+    depends_on:
+      onboarding-dean-local-database:
+        condition: service_healthy
+    links:
+      - onboarding-dean-local-database
+
+volumes:
+  onboarding-dean-local-data:
