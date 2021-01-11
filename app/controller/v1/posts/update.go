@@ -15,6 +15,15 @@ type UpdateInput struct {
 	Content string `json:"content"`
 }
 
+// @Title Update a post.
+// @Description Update a post with ID.
+// @Param  id  path  int  true  "Post ID."
+// @Param  post  body  UpdateInput  optional  "Post new data."
+// @Success  200  object  orm.Post  "Updated Post JSON"
+// @Failure  422  object  data.ErrorResponse  "Invalid Input Error JSON"
+// @Failure  500  object  data.ErrorResponse  "Internal Server Error JSON"
+// @Resource posts
+// @Route /api/v1/posts/{id} [put]
 func Update(a *core.App) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Get params and input

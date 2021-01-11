@@ -9,6 +9,13 @@ import (
 	"net/http"
 )
 
+// @Title Get a post.
+// @Description Get a post with ID.
+// @Param  id  path  int  true  "Post ID."
+// @Success  200  object  orm.Post  "Post JSON"
+// @Failure  404  object  data.ErrorResponse  "Resource Not Found Error JSON"
+// @Resource posts
+// @Route /api/v1/posts/{id} [get]
 func GetOne(a *core.App) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Get params

@@ -15,6 +15,14 @@ type CreateInput struct {
 	Name   string `json:"name"`
 }
 
+// @Title Create a thread.
+// @Description Create a new thread.
+// @Param  thread  body  CreateInput  true  "Thread data."
+// @Success  201  object  orm.Thread  "Created Thread JSON"
+// @Failure  422  object  data.ErrorResponse  "Invalid Input Error JSON"
+// @Failure  500  object  data.ErrorResponse  "Internal Server Error JSON"
+// @Resource threads
+// @Route /api/v1/threads [post]
 func Create(a *core.App) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Get input

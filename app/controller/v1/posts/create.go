@@ -2,12 +2,12 @@ package posts
 
 import (
 	"encoding/json"
+	"github.com/pkg/errors"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/auth"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/data"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
-	"github.com/pkg/errors"
 	"net/http"
 )
 
@@ -17,6 +17,14 @@ type CreateInput struct {
 	ThreadID uint   `json:"thread_id"`
 }
 
+// @Title Create a post.
+// @Description Create a new post to a thread.
+// @Param  post  body  CreateInput  true  "Post data."
+// @Success  201  object  orm.Post  "Created Post JSON"
+// @Failure  422  object  data.ErrorResponse  "Invalid Input Error JSON"
+// @Failure  500  object  data.ErrorResponse  "Internal Server Error JSON"
+// @Resource posts
+// @Route /api/v1/posts [post]
 func Create(a *core.App) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Get input

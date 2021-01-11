@@ -9,6 +9,14 @@ import (
 	"net/http"
 )
 
+// TODO: create succeed response
+
+// @Title Logout.
+// @Description Invalidate current token.
+// @Success  200  array  []orm.Thread  "Logout Succeed JSON"
+// @Failure  401  object  data.ErrorResponse  "Unauthorized Error JSON"
+// @Resource auth
+// @Route /api/v1/logout [post]
 func Logout(a *core.App) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Get claims context
@@ -21,6 +29,7 @@ func Logout(a *core.App) http.Handler {
 		ormToken := &orm.Token{}
 		err := a.DB.Where("user_id = ? AND token_uuid = ?", claims.UserID, claims.TokenUUID).First(&ormToken).Error
 		if err != nil {
+			// TODO: create error object
 			response.JSON(w, http.StatusUnauthorized, "Invalid token value last")
 			return
 		}

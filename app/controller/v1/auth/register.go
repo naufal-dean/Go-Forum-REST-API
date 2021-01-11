@@ -16,6 +16,15 @@ type RegisterInput struct {
 	Name                 string `json:"name"`
 }
 
+// TODO: create succeed response
+
+// @Title Register.
+// @Description Register a new user account.
+// @Param  user  body  RegisterInput  true  "New user data."
+// @Success  200  array  []orm.Thread  "Register Succeed JSON"
+// @Failure  422  object  data.ErrorResponse  "Invalid Input Error JSON"
+// @Resource auth
+// @Route /api/v1/register [post]
 func Register(a *core.App) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Get input

@@ -14,6 +14,15 @@ type UpdateInput struct {
 	Name   string `json:"name"`
 }
 
+// @Title Update a thread.
+// @Description Update a thread with ID.
+// @Param  id  path  int  true  "Thread ID."
+// @Param  thread  body  UpdateInput  optional  "Thread new data."
+// @Success  200  object  orm.Thread  "Updated Thread JSON"
+// @Failure  422  object  data.ErrorResponse  "Invalid Input Error JSON"
+// @Failure  500  object  data.ErrorResponse  "Internal Server Error JSON"
+// @Resource threads
+// @Route /api/v1/threads/{id} [put]
 func Update(a *core.App) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Get params and input

@@ -15,6 +15,14 @@ type LoginInput struct {
 	Password string `json:"password"`
 }
 
+// @Title Login.
+// @Description Login with email and password.
+// @Param  user  body  LoginInput  true  "New user data."
+// @Success  200  array  []orm.Thread  "Access Token JSON"
+// @Failure  401  object  data.ErrorResponse  "Invalid Credentials Error JSON"
+// @Failure  422  object  data.ErrorResponse  "Invalid Input Error JSON"
+// @Resource auth
+// @Route /api/v1/login [post]
 func Login(a *core.App) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Get input
