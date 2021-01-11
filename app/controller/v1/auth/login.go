@@ -31,7 +31,7 @@ func Login(a *core.App) http.Handler {
 		if err := a.DB.Where("email = ?", input.Email).Where("password = ?", input.Password).First(&user).Error;
 			err != nil {
 			// TODO: create response object
-			response.JSON(w, http.StatusNotFound, "Invalid email or password")
+			response.JSON(w, http.StatusUnauthorized, "Invalid email or password")
 			return
 		}
 
