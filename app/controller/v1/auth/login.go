@@ -37,12 +37,15 @@ func Login(a *core.App) http.Handler {
 		}
 		defer r.Body.Close()
 
-		// Check username and password
-		// TODO: use bcrypt
+		// Get user record
 		var user orm.User
-		if err := a.DB.Where("email = ?", input.Email).Where("password = ?", input.Password).First(&user).Error;
-			err != nil {
-			// TODO: create response object
+		if err := a.DB.Where("email = ?", input.Email).First(&user).Error; err != nil {
+			response.Error(w, http.StatusUnauthorized, "Invalid email or password")
+			return
+		}
+
+		// Check password
+		if !user.PasswordValid(input.Password) {
 			response.Error(w, http.StatusUnauthorized, "Invalid email or password")
 			return
 		}
