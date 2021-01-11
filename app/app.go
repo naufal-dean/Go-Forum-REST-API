@@ -7,6 +7,7 @@ import (
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/route"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/seed"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
@@ -16,13 +17,13 @@ import (
 
 var app *core.App
 
-func initApp() {
+func initApp(flags map[string]bool) {
 	app = &core.App{}
-	initAppDB()
+	initAppDB(flags["db-seed"], flags["db-fresh"])
 	initAppRouter()
 }
 
-func initAppDB() {
+func initAppDB(seedFlag bool, freshFlag bool) {
 	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable TimeZone=%s",
 		os.Getenv("DB_HOST"), os.Getenv("DB_PORT"), os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"),
 		os.Getenv("DB_DBNAME"), os.Getenv("DB_TIMEZONE"))
@@ -33,10 +34,18 @@ func initAppDB() {
 	}
 	// Save to app.DB
 	app.DB = db
+	// Reset database
+	if freshFlag {
+		app.DB.Migrator().DropTable(orm.Models...)
+	}
 	// Setup auto migrate
 	err = app.DB.AutoMigrate(orm.Models...)
 	if err != nil {
 		log.Fatal("Database setup failed")
+	}
+	// Seed database
+	if seedFlag {
+		seed.Run(app.DB)
 	}
 }
 
@@ -45,10 +54,10 @@ func initAppRouter() {
 	route.Setup(app)
 }
 
-func Exec() {
-	initApp()
+func Exec(flags map[string]bool) {
+	initApp(flags)
 
 	addr := ":8080"
-	fmt.Printf("Server started at %s...\n", addr)
+	fmt.Printf("[+] Server started at %s...\n", addr)
 	http.ListenAndServe(addr, app.Router)
 }
