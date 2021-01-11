@@ -23,8 +23,7 @@ func Auth(a *core.App) func(next http.Handler) http.Handler {
 			if len(arr) == 2 && arr[0] == "Bearer" {
 				tokenString = arr[1]
 			} else {
-				// TODO: create response object
-				response.JSON(w, http.StatusUnauthorized, "Invalid token")
+				response.Error(w, http.StatusUnauthorized, "Invalid token")
 				return
 			}
 
@@ -40,23 +39,21 @@ func Auth(a *core.App) func(next http.Handler) http.Handler {
 				return []byte(os.Getenv("APP_SECRET")), nil
 			})
 			if err != nil {
-				// TODO: create response object
-				response.JSON(w, http.StatusUnauthorized, err.Error())
+				response.Error(w, http.StatusUnauthorized, "Invalid token")
 				return
 			}
 
 			// Check claims
 			claims, ok := token.Claims.(*auth.TokenClaims)
 			if !ok || !token.Valid {
-				// TODO: create response object
-				response.JSON(w, http.StatusUnauthorized, "Invalid token claims")
+				response.Error(w, http.StatusUnauthorized, "Invalid token")
 				return
 			}
 
 			// Check tokens table
 			err = a.DB.Where("user_id = ? AND token_uuid = ?", claims.UserID, claims.TokenUUID).First(&orm.Token{}).Error
 			if err != nil {
-				response.JSON(w, http.StatusUnauthorized, "Invalid token value last")
+				response.Error(w, http.StatusUnauthorized, "Invalid token")
 				return
 			}
 

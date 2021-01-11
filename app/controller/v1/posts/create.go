@@ -5,7 +5,6 @@ import (
 	"github.com/pkg/errors"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/auth"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/data"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
 	"net/http"
@@ -21,8 +20,8 @@ type CreateInput struct {
 // @Description Create a new post to a thread.
 // @Param  post  body  CreateInput  true  "Post data."
 // @Success  201  object  orm.Post  "Created Post JSON"
-// @Failure  422  object  data.ErrorResponse  "Invalid Input Error JSON"
-// @Failure  500  object  data.ErrorResponse  "Internal Server Error JSON"
+// @Failure  422  object  response.ErrorResponse  "Invalid Input Error JSON"
+// @Failure  500  object  response.ErrorResponse  "Internal Server Error JSON"
 // @Resource posts
 // @Route /api/v1/posts [post]
 func Create(a *core.App) http.Handler {
@@ -30,7 +29,7 @@ func Create(a *core.App) http.Handler {
 		// Get input
 		var input CreateInput
 		if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
-			response.JSON(w, http.StatusUnprocessableEntity, data.CustomError("Invalid input"))
+			response.Error(w, http.StatusUnprocessableEntity, "Invalid input")
 			return
 		}
 		defer r.Body.Close()
@@ -45,7 +44,7 @@ func Create(a *core.App) http.Handler {
 		post := orm.Post{Title: input.Title, Content: input.Content, UserID: claims.UserID, ThreadID: input.ThreadID}
 		if err := a.DB.Create(&post).Error;
 			err != nil {
-			response.JSON(w, http.StatusInternalServerError, data.CustomError("Create post failed"))
+			response.Error(w, http.StatusInternalServerError, "Create post failed")
 			return
 		}
 

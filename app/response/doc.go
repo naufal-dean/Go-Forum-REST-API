@@ -1,2 +1,2 @@
-// Package response implements web service response utilities.
+// Package response implements web service general response utilities.
 package response

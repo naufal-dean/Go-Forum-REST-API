@@ -13,8 +13,8 @@ import (
 
 // @Title Logout.
 // @Description Invalidate current token.
-// @Success  200  array  []orm.Thread  "Logout Succeed JSON"
-// @Failure  401  object  data.ErrorResponse  "Unauthorized Error JSON"
+// @Success  200  object  response.SuccessResponse  "Logout Succeed JSON"
+// @Failure  401  object  response.ErrorResponse  "Unauthorized Error JSON"
 // @Resource auth
 // @Route /api/v1/logout [post]
 func Logout(a *core.App) http.Handler {
@@ -29,14 +29,12 @@ func Logout(a *core.App) http.Handler {
 		ormToken := &orm.Token{}
 		err := a.DB.Where("user_id = ? AND token_uuid = ?", claims.UserID, claims.TokenUUID).First(&ormToken).Error
 		if err != nil {
-			// TODO: create error object
-			response.JSON(w, http.StatusUnauthorized, "Invalid token value last")
+			response.Error(w, http.StatusUnauthorized, "Invalid token")
 			return
 		}
 		a.DB.Delete(&ormToken)
 
 		// Succeed
-		// TODO: create response object
-		response.JSON(w, http.StatusOK, "Logout succeed")
+		response.Success(w, http.StatusOK, "Logout succeed")
 	})
 }
