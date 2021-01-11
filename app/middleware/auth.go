@@ -2,52 +2,20 @@ package middleware
 
 import (
 	"context"
-	"fmt"
-	"github.com/dgrijalva/jwt-go"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/auth"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
 	"net/http"
-	"os"
-	"strings"
 )
 
 func Auth(a *core.App) func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			// Get token
-			authorizationHeader := r.Header.Get("Authorization")
-			arr := strings.Split(authorizationHeader, " ")
-			tokenString := ""
-			if len(arr) == 2 && arr[0] == "Bearer" {
-				tokenString = arr[1]
-			} else {
-				response.Error(w, http.StatusUnauthorized, "Invalid token")
-				return
-			}
-
-			// Parse token
-			token, err := jwt.ParseWithClaims(tokenString, &auth.TokenClaims{}, func(token *jwt.Token) (interface{}, error) {
-				// Check token signing method
-				method, ok := token.Method.(*jwt.SigningMethodHMAC)
-				if !ok || method != jwt.SigningMethodHS256 {
-					// TODO: create response object
-					return nil, fmt.Errorf("invalid token signing method")
-				}
-				// Return
-				return []byte(os.Getenv("APP_SECRET")), nil
-			})
+			// Get claims from bearer token
+			claims, err := auth.GetClaims(r)
 			if err != nil {
-				response.Error(w, http.StatusUnauthorized, "Invalid token")
-				return
-			}
-
-			// Check claims
-			claims, ok := token.Claims.(*auth.TokenClaims)
-			if !ok || !token.Valid {
-				response.Error(w, http.StatusUnauthorized, "Invalid token")
-				return
+				response.Error(w, http.StatusUnauthorized, err.Error())
 			}
 
 			// Check tokens table
