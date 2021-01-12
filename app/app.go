@@ -3,6 +3,7 @@ package app
 
 import (
 	"fmt"
+	"github.com/go-playground/validator/v10"
 	"github.com/gorilla/mux"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
@@ -13,6 +14,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"reflect"
+	"strings"
 )
 
 var app *core.App
@@ -21,6 +24,7 @@ func initApp(flags map[string]bool) {
 	app = &core.App{}
 	initAppDB(flags["db-seed"], flags["db-fresh"])
 	initAppRouter()
+	initAppValidate()
 }
 
 func initAppDB(seedFlag bool, freshFlag bool) {
@@ -52,6 +56,18 @@ func initAppDB(seedFlag bool, freshFlag bool) {
 func initAppRouter() {
 	app.Router = mux.NewRouter()
 	route.Setup(app)
+}
+
+func initAppValidate() {
+	app.Validate = validator.New()
+	app.Validate.RegisterTagNameFunc(func(field reflect.StructField) string {
+		// Get JSON name for vErr.Field()
+		name := strings.SplitN(field.Tag.Get("json"), ",", 2)[0]
+		if name == "-" {
+			return ""
+		}
+		return name
+	})
 }
 
 func Exec(flags map[string]bool) {
