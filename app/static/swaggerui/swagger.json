@@ -1,0 +1,815 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Onboarding Dean API",
+    "description": "API created for onboarding process in Pinhome.",
+    "contact": {
+      "name": "Naufal Dean A",
+      "url": "https://github.com/naufal-dean",
+      "email": "naufal.dean@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://en.wikipedia.org/wiki/MIT_License"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Default Server URL"
+    }
+  ],
+  "paths": {
+    "/api/v1/login": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Access Token JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.auth.LoginSuccessResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid Credentials Error JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid Input Error JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ],
+        "summary": "Login.",
+        "description": " Login with email and password.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.auth.LoginInput"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/v1/logout": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Logout Succeed JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.SuccessResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Error JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ],
+        "summary": "Logout.",
+        "description": " Invalidate current token."
+      }
+    },
+    "/api/v1/posts": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Array of Post JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string"
+                      },
+                      "content": {
+                        "type": "string"
+                      },
+                      "user_id": {
+                        "type": "integer"
+                      },
+                      "thread_id": {
+                        "type": "integer"
+                      },
+                      "id": {
+                        "type": "integer"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource Not Found Error JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "posts"
+        ],
+        "summary": "Get all posts.",
+        "description": " Get all post in database."
+      },
+      "post": {
+        "responses": {
+          "201": {
+            "description": "Created Post JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid Input Error JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "posts"
+        ],
+        "summary": "Create a post.",
+        "description": " Create a new post to a thread.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.posts.CreateInput"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/v1/posts/{id}": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Post JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.Post"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource Not Found Error JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "posts"
+        ],
+        "summary": "Get a post.",
+        "description": " Get a post with ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Post ID.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Post ID."
+            }
+          }
+        ]
+      },
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Updated Post JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid Input Error JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "posts"
+        ],
+        "summary": "Update a post.",
+        "description": " Update a post with ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Post ID.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Post ID."
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.posts.UpdateInput"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "responses": {
+          "404": {
+            "description": "Resource Not Found Error JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "posts"
+        ],
+        "summary": "Delete a post.",
+        "description": " Delete a post with ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Post ID.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Post ID."
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/register": {
+      "post": {
+        "responses": {
+          "201": {
+            "description": "Register Succeed JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.SuccessResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid Input Error JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ],
+        "summary": "Register.",
+        "description": " Register a new user account.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.auth.RegisterInput"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/v1/threads": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Array of Thread JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "user_id": {
+                        "type": "integer"
+                      },
+                      "id": {
+                        "type": "integer"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource Not Found Error JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "threads"
+        ],
+        "summary": "Get all threads.",
+        "description": " Get all thread in database."
+      },
+      "post": {
+        "responses": {
+          "201": {
+            "description": "Created Thread JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.Thread"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid Input Error JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "threads"
+        ],
+        "summary": "Create a thread.",
+        "description": " Create a new thread.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.threads.CreateInput"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/v1/threads/{id}": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Thread JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.Thread"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource Not Found Error JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "threads"
+        ],
+        "summary": "Get a thread.",
+        "description": " Get a thread with ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Thread ID.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Thread ID."
+            }
+          }
+        ]
+      },
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Updated Thread JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.Thread"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid Input Error JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "threads"
+        ],
+        "summary": "Update a thread.",
+        "description": " Update a thread with ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Thread ID.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Thread ID."
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.threads.UpdateInput"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "responses": {
+          "404": {
+            "description": "Resource Not Found Error JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "threads"
+        ],
+        "summary": "Delete a thread.",
+        "description": " Delete a thread with ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Thread ID.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Thread ID."
+            }
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "": {},
+      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.auth.LoginInput": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.auth.LoginSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "token_type": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.auth.RegisterInput": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "password_confirmation": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.posts.CreateInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "thread_id": {
+            "type": "integer"
+          }
+        }
+      },
+      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.posts.UpdateInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          }
+        }
+      },
+      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.threads.CreateInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.threads.UpdateInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.BaseModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.Post": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "integer"
+          },
+          "thread_id": {
+            "type": "integer"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.Thread": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "integer"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.SuccessResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "gorm.io.gorm.DeletedAt": {}
+    },
+    "securitySchemes": {
+      "AuthorizationHeader": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Inuput your token"
+      }
+    }
+  },
+  "security": [
+    {
+      "AuthorizationHeader": []
+    }
+  ]
+}
