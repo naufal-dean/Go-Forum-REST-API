@@ -4,6 +4,7 @@ import (
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/controller/v1/auth"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/controller/v1/posts"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/controller/v1/threads"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/controller/v1/users"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/middleware"
 )
@@ -29,6 +30,12 @@ func Setup(a *core.App) {
 		v1AuthR.Handle("/logout", auth.Logout(a)).Methods("POST")
 		v1AuthR.Handle("/profile", auth.Profile(a)).Methods("POST")
 
+		// User resource routes
+		// User nested resource routes
+		usersR := v1AuthR.PathPrefix("/users").Subrouter()
+		usersR.Handle("/{id}/threads", users.GetThreads(a)).Methods("GET")
+		usersR.Handle("/{id}/posts", users.GetPosts(a)).Methods("GET")
+
 		// Thread resource routes
 		threadsR := v1AuthR.PathPrefix("/threads").Subrouter()
 		threadsR.Handle("", threads.Create(a)).Methods("POST")
@@ -36,6 +43,8 @@ func Setup(a *core.App) {
 		threadsR.Handle("/{id}", threads.GetOne(a)).Methods("GET")
 		threadsR.Handle("/{id}", threads.Update(a)).Methods("PUT")
 		threadsR.Handle("/{id}", threads.Delete(a)).Methods("DELETE")
+		// Thread nested resource routes
+		threadsR.Handle("/{id}/posts", threads.GetPosts(a)).Methods("GET")
 
 		// Posts resource routes
 		postsR := v1AuthR.PathPrefix("/posts").Subrouter()
