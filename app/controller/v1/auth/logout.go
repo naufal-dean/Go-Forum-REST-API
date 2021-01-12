@@ -11,8 +11,6 @@ import (
 	"net/http"
 )
 
-// TODO: create succeed response
-
 // @Title Logout.
 // @Description Invalidate current token.
 // @Success  200  object  response.SuccessResponse  "Logout Succeed JSON"
