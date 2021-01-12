@@ -3,9 +3,11 @@ package auth
 import (
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/auth"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/cerror"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
 	"github.com/pkg/errors"
+	"gorm.io/gorm"
 	"net/http"
 )
 
@@ -29,8 +31,12 @@ func Logout(a *core.App) http.Handler {
 		ormToken := &orm.Token{}
 		err := a.DB.Where("user_id = ? AND token_uuid = ?", claims.UserID, claims.TokenUUID).First(&ormToken).Error
 		if err != nil {
-			response.Error(w, http.StatusUnauthorized, "Invalid token")
-			return
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				response.Error(w, http.StatusUnauthorized, "Invalid token")
+				return
+			} else {
+				panic(&cerror.DatabaseError{DBErr: err})
+			}
 		}
 		a.DB.Delete(&ormToken)
 

@@ -2,10 +2,13 @@ package auth
 
 import (
 	"encoding/json"
+	"github.com/pkg/errors"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/auth"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/cerror"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
+	"gorm.io/gorm"
 	"net/http"
 )
 
@@ -40,8 +43,12 @@ func Login(a *core.App) http.Handler {
 		// Get user record
 		var user orm.User
 		if err := a.DB.Where("email = ?", input.Email).First(&user).Error; err != nil {
-			response.Error(w, http.StatusUnauthorized, "Invalid email or password")
-			return
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				response.Error(w, http.StatusUnauthorized, "Invalid email or password")
+				return
+			} else {
+				panic(&cerror.DatabaseError{DBErr: err})
+			}
 		}
 
 		// Check password

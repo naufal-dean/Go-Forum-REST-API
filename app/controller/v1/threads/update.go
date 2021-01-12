@@ -7,8 +7,10 @@ import (
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/auth"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/util"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/cerror"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
+	"gorm.io/gorm"
 	"net/http"
 )
 
@@ -45,8 +47,12 @@ func Update(a *core.App) http.Handler {
 		// Get record
 		var thread orm.Thread
 		if err := a.DB.Where("id = ?", id).First(&thread).Error; err != nil {
-			response.Error(w, http.StatusNotFound, "Thread not found")
-			return
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				response.Error(w, http.StatusNotFound, "Thread not found")
+				return
+			} else {
+				panic(&cerror.DatabaseError{DBErr: err})
+			}
 		}
 
 		// Check ownership
