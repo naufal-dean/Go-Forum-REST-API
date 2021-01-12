@@ -2,7 +2,9 @@ package threads
 
 import (
 	"github.com/gorilla/mux"
+	"github.com/pkg/errors"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/auth"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
 	"net/http"
@@ -26,6 +28,16 @@ func Delete(a *core.App) http.Handler {
 		if err := a.DB.Where("id = ?", vars["id"]).First(&thread).Error; err != nil {
 			response.Error(w, http.StatusNotFound, "Post not found")
 			//response.JSON(w, http.StatusNotFound, data.ResourceNotFound())
+			return
+		}
+
+		// Check ownership
+		claims, ok := r.Context().Value("claims").(*auth.TokenClaims)
+		if !ok {
+			panic(errors.New("invalid claims context"))
+		}
+		if claims.UserID != thread.UserID {
+			response.Error(w, http.StatusForbidden, "You are not the owner of the thread")
 			return
 		}
 
