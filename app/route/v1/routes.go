@@ -31,8 +31,9 @@ func Setup(a *core.App) {
 		v1AuthR.Handle("/profile", auth.Profile(a)).Methods("POST")
 
 		// User resource routes
-		// User nested resource routes
 		usersR := v1AuthR.PathPrefix("/users").Subrouter()
+		usersR.Handle("/{id}", users.GetOne(a)).Methods("GET")
+		// User nested resource routes
 		usersR.Handle("/{id}/threads", users.GetThreads(a)).Methods("GET")
 		usersR.Handle("/{id}/posts", users.GetPosts(a)).Methods("GET")
 
