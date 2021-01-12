@@ -5,6 +5,7 @@ import (
 	"github.com/pkg/errors"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/auth"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/util"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
 	"net/http"
@@ -21,11 +22,15 @@ import (
 func Delete(a *core.App) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
     	// Get params
-		vars := mux.Vars(r)
+		id, err := util.StrToUint(mux.Vars(r)["id"])
+		if err != nil {
+			response.Error(w, http.StatusUnprocessableEntity, "Invalid id")
+			return
+		}
 
 		// Get record
 		var post orm.Post
-		if err := a.DB.Where("id = ?", vars["id"]).First(&post).Error; err != nil {
+		if err := a.DB.Where("id = ?", id).First(&post).Error; err != nil {
 			response.Error(w, http.StatusNotFound, "Post not found")
 			return
 		}
