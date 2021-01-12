@@ -14,6 +14,7 @@ func Run(db *gorm.DB) {
 	UserRun(db)
 	ThreadRun(db)
 	PostRun(db)
+	TokenRun(db)  // used for testing convenience
 
 	fmt.Println("[+] Seeding table completed...")
 	fmt.Println()
