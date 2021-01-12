@@ -10,7 +10,7 @@ import (
 // @Title Get all threads.
 // @Description Get all thread in database.
 // @Success  200  array  []orm.Thread  "Array of Thread JSON"
-// @Failure  404  object  data.ErrorResponse  "Resource Not Found Error JSON"
+// @Failure  404  object  response.ErrorResponse  "Resource Not Found Error JSON"
 // @Resource threads
 // @Route /api/v1/threads [get]
 func GetAll(a *core.App) http.Handler {

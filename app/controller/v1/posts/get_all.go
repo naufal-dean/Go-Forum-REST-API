@@ -10,7 +10,7 @@ import (
 // @Title Get all posts.
 // @Description Get all post in database.
 // @Success  200  array  []orm.Post  "Array of Post JSON"
-// @Failure  404  object  data.ErrorResponse  "Resource Not Found Error JSON"
+// @Failure  404  object  response.ErrorResponse  "Resource Not Found Error JSON"
 // @Resource posts
 // @Route /api/v1/posts [get]
 func GetAll(a *core.App) http.Handler {
