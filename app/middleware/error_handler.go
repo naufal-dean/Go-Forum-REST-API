@@ -2,7 +2,9 @@ package middleware
 
 import (
 	"fmt"
+	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/cerror"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
 	"net/http"
 	"os"
@@ -25,14 +27,23 @@ func init() {
 func ErrorHandler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer func() {
-			if err := recover(); err != nil {
+			if obj := recover(); obj != nil {
+				// Log error
 				logError.WithFields(logrus.Fields{
-					"error": fmt.Sprintf("%v", err),
+					"error": fmt.Sprintf("%v", obj),
 				}).Error()
-				response.Error(w, http.StatusInternalServerError, "Internal Server Error")
+				fmt.Printf("%+v\n", obj)
+				// Create error response
+				err, _ := obj.(error)
+				switch errors.Cause(err).(type) {
+				case *cerror.DatabaseError:
+					response.Error(w, http.StatusInternalServerError, "Database Error")
+				default:
+					response.Error(w, http.StatusInternalServerError, "Internal Server Error")
+				}
 			}
 		}()
-
+		// Serve next handler
 		next.ServeHTTP(w, r)
 	})
 }
