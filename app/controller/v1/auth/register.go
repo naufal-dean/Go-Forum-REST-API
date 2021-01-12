@@ -3,6 +3,7 @@ package auth
 import (
 	"encoding/json"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/cerror"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
 	"net/http"
@@ -14,8 +15,6 @@ type RegisterInput struct {
 	PasswordConfirmation string `json:"password_confirmation"`
 	Name                 string `json:"name"`
 }
-
-// TODO: create succeed response
 
 // @Title Register.
 // @Description Register a new user account.
@@ -43,9 +42,12 @@ func Register(a *core.App) http.Handler {
 		// Create record
 		user := orm.User{Email: input.Email, Password: input.Password, Name: input.Name}
 		if err := a.DB.Create(&user).Error; err != nil {
-			// TODO: create not unique error message
-			response.Error(w, http.StatusInternalServerError, "Register failed")
-			return
+			if a.DB.Where("email = ?", input.Email).First(&orm.User{}).Error == nil {
+				response.Error(w, http.StatusConflict, "Email is already in use")
+				return
+			} else {
+				panic(&cerror.DatabaseError{DBErr: err})
+			}
 		}
 
 		// Succeed
