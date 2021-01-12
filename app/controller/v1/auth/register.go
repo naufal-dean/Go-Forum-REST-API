@@ -6,14 +6,15 @@ import (
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/cerror"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response/data"
 	"net/http"
 )
 
 type RegisterInput struct {
-	Email                string `json:"email"`
-	Password             string `json:"password"`
-	PasswordConfirmation string `json:"password_confirmation"`
-	Name                 string `json:"name"`
+	Email                string `json:"email" validate:"required,email"`
+	Password             string `json:"password" validate:"required"`
+	PasswordConfirmation string `json:"password_confirmation" validate:"required,eqfield=Password"`
+	Name                 string `json:"name" validate:"required"`
 }
 
 // @Title Register.
@@ -33,9 +34,10 @@ func Register(a *core.App) http.Handler {
 		}
 		defer r.Body.Close()
 
-		// Check if password confirmation match
-		if input.Password != input.PasswordConfirmation {
-			response.Error(w, http.StatusUnprocessableEntity, "Password confirmation mismatch")
+		// Validate input
+		err := a.Validate.Struct(input)
+		if err != nil {
+			response.JSON(w, http.StatusBadRequest, data.NewValidationErrorResponse(err))
 			return
 		}
 

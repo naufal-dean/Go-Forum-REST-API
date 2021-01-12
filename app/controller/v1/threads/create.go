@@ -2,16 +2,17 @@ package threads
 
 import (
 	"encoding/json"
+	"github.com/pkg/errors"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/auth"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
-	"github.com/pkg/errors"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response/data"
 	"net/http"
 )
 
 type CreateInput struct {
-	Name   string `json:"name"`
+	Name   string `json:"name" validate:"required"`
 }
 
 // @Title Create a thread.
@@ -31,6 +32,13 @@ func Create(a *core.App) http.Handler {
 			return
 		}
 		defer r.Body.Close()
+
+		// Validate input
+		err := a.Validate.Struct(input)
+		if err != nil {
+			response.JSON(w, http.StatusBadRequest, data.NewValidationErrorResponse(err))
+			return
+		}
 
 		// Get claims context
 		claims, ok := r.Context().Value("claims").(*auth.TokenClaims)

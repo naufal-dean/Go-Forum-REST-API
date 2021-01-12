@@ -8,13 +8,14 @@ import (
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/cerror"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response/data"
 	"gorm.io/gorm"
 	"net/http"
 )
 
 type LoginInput struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email    string `json:"email" validate:"required,email"`
+	Password string `json:"password" validate:"required"`
 }
 
 type LoginSuccessResponse struct {
@@ -39,6 +40,13 @@ func Login(a *core.App) http.Handler {
 			return
 		}
 		defer r.Body.Close()
+
+		// Validate input
+		err := a.Validate.Struct(input)
+		if err != nil {
+			response.JSON(w, http.StatusBadRequest, data.NewValidationErrorResponse(err))
+			return
+		}
 
 		// Get user record
 		var user orm.User

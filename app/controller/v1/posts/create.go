@@ -7,13 +7,14 @@ import (
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/auth"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response/data"
 	"net/http"
 )
 
 type CreateInput struct {
-	Title    string `json:"title"`
-	Content  string `json:"content"`
-	ThreadID uint   `json:"thread_id"`
+	Title    string `json:"title" validate:"required"`
+	Content  string `json:"content" validate:"required"`
+	ThreadID uint   `json:"thread_id" validate:"required"`
 }
 
 // @Title Create a post.
@@ -33,6 +34,13 @@ func Create(a *core.App) http.Handler {
 			return
 		}
 		defer r.Body.Close()
+
+		// Validate input
+		err := a.Validate.Struct(input)
+		if err != nil {
+			response.JSON(w, http.StatusBadRequest, data.NewValidationErrorResponse(err))
+			return
+		}
 
 		// Get claims context
 		claims, ok := r.Context().Value("claims").(*auth.TokenClaims)
