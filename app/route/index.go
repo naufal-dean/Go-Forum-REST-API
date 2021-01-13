@@ -1,6 +1,7 @@
 package route
 
 import (
+	"github.com/pkg/errors"
 	"github.com/rakyll/statik/fs"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/controller"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
@@ -23,7 +24,7 @@ func Setup(a *core.App) {
 	// API docs
 	statikFS, err := fs.New()
 	if err != nil {
-		panic(err)
+		panic(errors.Wrap(err, "failed to create new statik file server instance"))
 	}
-	a.Router.PathPrefix("/docs").Handler(http.StripPrefix("/docs", http.FileServer(statikFS)))
+	a.Router.PathPrefix("api/docs").Handler(http.StripPrefix("api/docs", http.FileServer(statikFS)))
 }
