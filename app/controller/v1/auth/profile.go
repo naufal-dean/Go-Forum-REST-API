@@ -21,7 +21,8 @@ func Profile(a *core.App) http.Handler {
 		// Get claims context
 		claims, ok := r.Context().Value("claims").(*auth.TokenClaims)
 		if !ok {
-			panic(errors.New("invalid claims context"))
+			response.Error(w, http.StatusUnauthorized, "No token claims found")
+			return
 		}
 
     	// Get record

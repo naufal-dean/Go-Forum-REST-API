@@ -2,7 +2,6 @@ package posts
 
 import (
 	"encoding/json"
-	"github.com/pkg/errors"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/auth"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
@@ -45,7 +44,8 @@ func Create(a *core.App) http.Handler {
 		// Get claims context
 		claims, ok := r.Context().Value("claims").(*auth.TokenClaims)
 		if !ok {
-			panic(errors.New("invalid claims context"))
+			response.Error(w, http.StatusUnauthorized, "No token claims found")
+			return
 		}
 
 		// Create record

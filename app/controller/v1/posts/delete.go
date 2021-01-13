@@ -44,7 +44,8 @@ func Delete(a *core.App) http.Handler {
 		// Check ownership
 		claims, ok := r.Context().Value("claims").(*auth.TokenClaims)
 		if !ok {
-			panic(errors.New("invalid claims context"))
+			response.Error(w, http.StatusUnauthorized, "No token claims found")
+			return
 		}
 		if claims.UserID != post.UserID {
 			response.Error(w, http.StatusForbidden, "You are not the owner of the post")
