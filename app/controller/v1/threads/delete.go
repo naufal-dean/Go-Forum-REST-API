@@ -13,16 +13,18 @@ import (
 	"net/http"
 )
 
-// TODO: add no content return object
-
 // @Title Delete a thread.
 // @Description Delete a thread with ID.
 // @Param  id  path  int  true  "Thread ID."
-// @Failure  404  object  response.ErrorResponse  "Resource Not Found Error JSON"
+// @Success  204  object  string  "Succeed With No Content"
+// @Failure  401  object  response.ErrorResponse  "Unauthorized Error"
+// @Failure  403  object  response.ErrorResponse  "Forbidden Error (Non Owner)"
+// @Failure  404  object  response.ErrorResponse  "Resource Not Found Error"
+// @Failure  422  object  response.ErrorResponse  "Unprocessable Input Error"
 // @Resource threads
 // @Route /api/v1/threads/{id} [delete]
 func Delete(a *core.App) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Get params
 		id, err := util.StrToUint(mux.Vars(r)["id"])
 		if err != nil {

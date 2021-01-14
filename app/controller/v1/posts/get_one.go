@@ -15,8 +15,9 @@ import (
 // @Title Get a post.
 // @Description Get a post with ID.
 // @Param  id  path  int  true  "Post ID."
-// @Success  200  object  orm.Post  "Post JSON"
-// @Failure  404  object  response.ErrorResponse  "Resource Not Found Error JSON"
+// @Success  200  object  orm.Post  "Post Data"
+// @Failure  404  object  response.ErrorResponse  "Resource Not Found Error"
+// @Failure  422  object  response.ErrorResponse  "Unprocessable Input Error"
 // @Resource posts
 // @Route /api/v1/posts/{id} [get]
 func GetOne(a *core.App) http.Handler {

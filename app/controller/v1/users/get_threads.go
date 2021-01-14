@@ -15,7 +15,9 @@ import (
 // @Title Get user's thread.
 // @Description Get all threads owned by user.
 // @Param  id  path  int  true  "User ID."
-// @Success  200  array  orm.Thread  "Array of User's Thread JSON"
+// @Success  200  array  []orm.Thread  "Array of Thread's Thread"
+// @Failure  404  object  response.ErrorResponse  "Resource Not Found Error"
+// @Failure  422  object  response.ErrorResponse  "Unprocessable Input Error"
 // @Resource users/threads
 // @Route /api/v1/users/{id}/threads [get]
 func GetThreads(a *core.App) http.Handler {

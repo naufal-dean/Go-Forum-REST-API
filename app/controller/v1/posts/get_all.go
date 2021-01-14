@@ -9,12 +9,11 @@ import (
 
 // @Title Get all posts.
 // @Description Get all post in database.
-// @Success  200  array  []orm.Post  "Array of Post JSON"
-// @Failure  404  object  response.ErrorResponse  "Resource Not Found Error JSON"
+// @Success  200  array  []orm.Post  "Array of Post"
 // @Resource posts
 // @Route /api/v1/posts [get]
 func GetAll(a *core.App) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Get records
 		var posts []orm.Post
 		a.DB.Find(&posts)

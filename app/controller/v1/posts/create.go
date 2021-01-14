@@ -22,9 +22,11 @@ type CreateInput struct {
 // @Title Create a post.
 // @Description Create a new post to a thread.
 // @Param  post  body  CreateInput  true  "Post data."
-// @Success  201  object  orm.Post  "Created Post JSON"
-// @Failure  422  object  response.ErrorResponse  "Invalid Input Error JSON"
-// @Failure  500  object  response.ErrorResponse  "Internal Server Error JSON"
+// @Success  201  object  orm.Post  "Created Post"
+// @Failure  400  object  data.ValidationErrorResponse  "Invalid Input Field(s) Error"
+// @Failure  401  object  response.ErrorResponse  "Unauthorized Error"
+// @Failure  403  object  response.ErrorResponse  "Forbidden Error (Referenced Thread Not Exists)"
+// @Failure  422  object  response.ErrorResponse  "Unprocessable Input Error"
 // @Resource posts
 // @Route /api/v1/posts [post]
 func Create(a *core.App) http.Handler {
@@ -63,8 +65,7 @@ func Create(a *core.App) http.Handler {
 
 		// Create record
 		post := orm.Post{Title: input.Title, Content: input.Content, UserID: claims.UserID, ThreadID: input.ThreadID}
-		if err := a.DB.Create(&post).Error;
-			err != nil {
+		if err := a.DB.Create(&post).Error; err != nil {
 			response.Error(w, http.StatusInternalServerError, "Create post failed")
 			return
 		}

@@ -15,8 +15,9 @@ import (
 // @Title Get an user.
 // @Description Get the profile of user with ID.
 // @Param  id  path  int  true  "User ID."
-// @Success  200  object  orm.User  "User JSON"
-// @Failure  404  object  response.ErrorResponse  "Resource Not Found Error JSON"
+// @Success  200  object  orm.User  "User Data"
+// @Failure  404  object  response.ErrorResponse  "Resource Not Found Error"
+// @Failure  422  object  response.ErrorResponse  "Unprocessable Input Error"
 // @Resource users
 // @Route /api/v1/users/{id} [get]
 func GetOne(a *core.App) http.Handler {

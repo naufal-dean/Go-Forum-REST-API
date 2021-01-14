@@ -13,11 +13,12 @@ import (
 
 // @Title Profile.
 // @Description Get the profile of authenticated user.
-// @Success  200  object  orm.User  "Authenticated User JSON"
+// @Success  200  object  orm.User  "Authenticated User Data"
+// @Failure  401  object  response.ErrorResponse  "Unauthorized Error"
 // @Resource auth
 // @Route /api/v1/profile [post]
 func Profile(a *core.App) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Get claims context
 		claims, ok := r.Context().Value("claims").(*auth.TokenClaims)
 		if !ok {
@@ -25,7 +26,7 @@ func Profile(a *core.App) http.Handler {
 			return
 		}
 
-    	// Get record
+		// Get record
 		var user orm.User
 		if err := a.DB.Where("id = ?", claims.UserID).First(&user).Error; err != nil {
 			if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -37,6 +38,5 @@ func Profile(a *core.App) http.Handler {
 
 		// Succeed
 		response.JSON(w, http.StatusOK, user)
-    })
+	})
 }
-

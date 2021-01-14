@@ -13,8 +13,8 @@ import (
 
 // @Title Logout.
 // @Description Invalidate current token.
-// @Success  200  object  response.SuccessResponse  "Logout Succeed JSON"
-// @Failure  401  object  response.ErrorResponse  "Unauthorized Error JSON"
+// @Success  200  object  response.SuccessResponse  "Logout Succeed"
+// @Failure  401  object  response.ErrorResponse  "Unauthorized Error"
 // @Resource auth
 // @Route /api/v1/logout [post]
 func Logout(a *core.App) http.Handler {

@@ -13,17 +13,19 @@ import (
 	"net/http"
 )
 
-// TODO: add no content return object
-
 // @Title Delete a post.
 // @Description Delete a post with ID.
 // @Param  id  path  int  true  "Post ID."
-// @Failure  404  object  response.ErrorResponse  "Resource Not Found Error JSON"
+// @Success  204  object  string  "Succeed With No Content"
+// @Failure  401  object  response.ErrorResponse  "Unauthorized Error"
+// @Failure  403  object  response.ErrorResponse  "Forbidden Error (Non Owner)"
+// @Failure  404  object  response.ErrorResponse  "Resource Not Found Error"
+// @Failure  422  object  response.ErrorResponse  "Unprocessable Input Error"
 // @Resource posts
 // @Route /api/v1/posts/{id} [delete]
 func Delete(a *core.App) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-    	// Get params
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Get params
 		id, err := util.StrToUint(mux.Vars(r)["id"])
 		if err != nil {
 			response.Error(w, http.StatusUnprocessableEntity, "Invalid id")

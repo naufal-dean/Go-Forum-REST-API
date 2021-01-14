@@ -21,7 +21,9 @@ type RegisterInput struct {
 // @Description Register a new user account.
 // @Param  user  body  RegisterInput  true  "New user data."
 // @Success  201  array  response.SuccessResponse  "Register Succeed JSON"
-// @Failure  422  object  response.ErrorResponse  "Invalid Input Error JSON"
+// @Failure  400  object  data.ValidationErrorResponse  "Invalid Input Field(s) Error"
+// @Failure  409  object  data.ValidationErrorResponse  "Email Already Used Error"
+// @Failure  422  object  response.ErrorResponse  "Unprocessable Input Error"
 // @Resource auth
 // @Route /api/v1/register [post]
 func Register(a *core.App) http.Handler {

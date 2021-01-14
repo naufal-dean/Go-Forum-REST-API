@@ -23,13 +23,15 @@ type UpdateInput struct {
 // @Description Update a post with ID.
 // @Param  id  path  int  true  "Post ID."
 // @Param  post  body  UpdateInput  optional  "Post new data."
-// @Success  200  object  orm.Post  "Updated Post JSON"
-// @Failure  422  object  response.ErrorResponse  "Invalid Input Error JSON"
-// @Failure  500  object  response.ErrorResponse  "Internal Server Error JSON"
+// @Success  200  object  orm.Post  "Updated Post Data"
+// @Failure  401  object  response.ErrorResponse  "Unauthorized Error"
+// @Failure  403  object  response.ErrorResponse  "Forbidden Error (Non Owner)"
+// @Failure  404  object  response.ErrorResponse  "Resource Not Found Error"
+// @Failure  422  object  response.ErrorResponse  "Unprocessable Input Error"
 // @Resource posts
 // @Route /api/v1/posts/{id} [put]
 func Update(a *core.App) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Get params
 		id, err := util.StrToUint(mux.Vars(r)["id"])
 		if err != nil {
@@ -37,7 +39,7 @@ func Update(a *core.App) http.Handler {
 			return
 		}
 
-    	// Get input
+		// Get input
 		var input UpdateInput
 		if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
 			response.Error(w, http.StatusUnprocessableEntity, "Invalid input")
@@ -67,10 +69,10 @@ func Update(a *core.App) http.Handler {
 			return
 		}
 
-    	// Update record
+		// Update record
 		a.DB.Model(&post).Updates(orm.Post{Title: input.Title, Content: input.Content})
 
-    	// Succeed
+		// Succeed
 		response.JSON(w, http.StatusOK, post)
 	})
 }

@@ -25,10 +25,11 @@ type LoginSuccessResponse struct {
 
 // @Title Login.
 // @Description Login with email and password.
-// @Param  user  body  LoginInput  true  "New user data."
-// @Success  200  array  LoginSuccessResponse  "Access Token JSON"
-// @Failure  401  object  response.ErrorResponse  "Invalid Credentials Error JSON"
-// @Failure  422  object  response.ErrorResponse  "Invalid Input Error JSON"
+// @Param  user  body  LoginInput  true  "User credentials."
+// @Success  200  array  LoginSuccessResponse  "Access Token"
+// @Failure  400  object  data.ValidationErrorResponse  "Invalid Input Field(s) Error"
+// @Failure  401  object  response.ErrorResponse  "Invalid Credentials Error"
+// @Failure  422  object  response.ErrorResponse  "Unprocessable Input Error"
 // @Resource auth
 // @Route /api/v1/login [post]
 func Login(a *core.App) http.Handler {

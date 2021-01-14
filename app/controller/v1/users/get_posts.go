@@ -15,7 +15,9 @@ import (
 // @Title Get user's post.
 // @Description Get all posts owned by user.
 // @Param  id  path  int  true  "User ID."
-// @Success  200  array  orm.Post  "Array of User's Post JSON"
+// @Success  200  array  []orm.Post  "Array of Thread's Post"
+// @Failure  404  object  response.ErrorResponse  "Resource Not Found Error"
+// @Failure  422  object  response.ErrorResponse  "Unprocessable Input Error"
 // @Resource users/posts
 // @Route /api/v1/users/{id}/posts [get]
 func GetPosts(a *core.App) http.Handler {

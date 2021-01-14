@@ -15,11 +15,13 @@ import (
 // @Title Get thread's post.
 // @Description Get all posts in the thread.
 // @Param  id  path  int  true  "Thread ID."
-// @Success  200  array  orm.Post  "Array of Thread's Post JSON"
+// @Success  200  array  []orm.Post  "Array of Thread's Post"
+// @Failure  404  object  response.ErrorResponse  "Resource Not Found Error"
+// @Failure  422  object  response.ErrorResponse  "Unprocessable Input Error"
 // @Resource threads/posts
 // @Route /api/v1/threads/{id}/posts [get]
 func GetPosts(a *core.App) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Get params
 		id, err := util.StrToUint(mux.Vars(r)["id"])
 		if err != nil {
@@ -40,6 +42,5 @@ func GetPosts(a *core.App) http.Handler {
 
 		// Succeed
 		response.JSON(w, http.StatusOK, thread.Posts)
-    })
+	})
 }
-
