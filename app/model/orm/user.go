@@ -1,6 +1,7 @@
 package orm
 
 import (
+	"github.com/pkg/errors"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/hash"
 	"gorm.io/gorm"
 )
@@ -16,7 +17,11 @@ type User struct {
 }
 
 func (u *User) BeforeCreate(tx *gorm.DB) (err error) {
-	u.Password = hash.MakePasswordHash(u.Password)
+	if u.Password != "" {
+		u.Password = hash.MakePasswordHash(u.Password)
+	} else {
+		return errors.New("password can not be empty")
+	}
 	return
 }
 
