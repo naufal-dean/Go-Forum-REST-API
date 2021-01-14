@@ -26,5 +26,5 @@ func Setup(a *core.App) {
 	if err != nil {
 		panic(errors.Wrap(err, "failed to create new statik file server instance"))
 	}
-	a.Router.PathPrefix("api/docs").Handler(http.StripPrefix("api/docs", http.FileServer(statikFS)))
+	a.Router.PathPrefix("/api/docs/").Handler(http.StripPrefix("/api/docs/", http.FileServer(statikFS)))
 }
