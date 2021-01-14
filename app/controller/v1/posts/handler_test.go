@@ -243,18 +243,25 @@ var updateTests = []struct {
 		http.StatusOK,
 	},
 	{
-		// token claims not set
-		false,
-		"1",
-		`{"title": "Updated Test", "content": "Updated Test Content"}`,
-		http.StatusUnauthorized,
-	},
-	{
 		// invalid json format
 		true,
 		"1",
 		``,
 		http.StatusUnprocessableEntity,
+	},
+	{
+		// all field is optional on update, test empty json
+		true,
+		"1000",
+		`{"title": "Updated Test", "content": "Updated Test Content"}`,
+		http.StatusNotFound,
+	},
+	{
+		// token claims not set
+		false,
+		"1",
+		`{"title": "Updated Test", "content": "Updated Test Content"}`,
+		http.StatusUnauthorized,
 	},
 	{
 		// user id 1, try update post owned by user id 2

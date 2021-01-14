@@ -229,6 +229,13 @@ var updateTests = []struct {
 		http.StatusOK,
 	},
 	{
+		// invalid json format
+		true,
+		"1",
+		``,
+		http.StatusUnprocessableEntity,
+	},
+	{
 		// token claims not set
 		false,
 		"1",
@@ -236,11 +243,11 @@ var updateTests = []struct {
 		http.StatusUnauthorized,
 	},
 	{
-		// invalid json format
+		// token claims not set
 		true,
-		"1",
-		``,
-		http.StatusUnprocessableEntity,
+		"1000",
+		`{"name": "Updated Test Thread"}`,
+		http.StatusNotFound,
 	},
 	{
 		// user id 1, try update thread owned by user id 2
