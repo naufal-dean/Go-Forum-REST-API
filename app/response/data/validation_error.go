@@ -19,16 +19,29 @@ func NewValidationErrorResponse(err error) *ValidationErrorResponse {
 	if err != nil {
 		var fieldErrors []FieldError
 		for _, fErr := range err.(validator.ValidationErrors) {
-			message := fmt.Sprintf("Invalid input with tag '%v'", fErr.Tag())
-			if fErr.Param() != "" {
-				message += fmt.Sprintf(" and param '%v'", fErr.Param())
-			}
 			fieldErrors = append(fieldErrors, FieldError{
 				Field:   fErr.Field(),
-				Message: message,
+				Message: TranslateFieldError(fErr),
 			})
 		}
 		return &ValidationErrorResponse{Error: "Invalid input field(s)", FieldErrors: fieldErrors}
 	}
 	return nil
+}
+
+func TranslateFieldError(err validator.FieldError) string {
+	switch err.Tag() {
+	case "required":
+		return fmt.Sprintf("%v field is required", err.Field())
+	case "email":
+		return fmt.Sprintf("%v field must be an valid email", err.Field())
+	case "eqfield":
+		return fmt.Sprintf("%v field must be equal with %v", err.Field(), err.Param())
+	default:
+		message := fmt.Sprintf("Invalid input with tag '%v'", err.Tag())
+		if err.Param() != "" {
+			message += fmt.Sprintf(" and param '%v'", err.Param())
+		}
+		return message
+	}
 }
