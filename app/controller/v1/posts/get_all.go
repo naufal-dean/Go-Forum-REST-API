@@ -1,6 +1,7 @@
 package posts
 
 import (
+	"fmt"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
@@ -16,7 +17,12 @@ func GetAll(a *core.App) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Get records
 		var posts []orm.Post
-		a.DB.Find(&posts)
+		search := r.URL.Query().Get("search")
+		if search == "" {
+			a.DB.Find(&posts)
+		} else {
+			a.DB.Where("title LIKE ?", fmt.Sprintf("%%%s%%", search)).Find(&posts)
+		}
 
 		// Succeed
 		response.JSON(w, http.StatusOK, posts)
