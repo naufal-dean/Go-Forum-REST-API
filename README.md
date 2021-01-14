@@ -17,6 +17,7 @@ Naufal Dean Anugrah - [naufal.dean@pinhome.id](naufal.dean@pinhome.id)
 ### Preparation
 1. Copy file `.env.example` to `.env`.
 2. Set the environment variable value in `.env` if necessary.
+3. Install Golang dependency using command `go mod tidy`.
 ### Run
 #### Option 1 (using docker)
 1. Run command `docker-compose up`.
@@ -28,7 +29,9 @@ Naufal Dean Anugrah - [naufal.dean@pinhome.id](naufal.dean@pinhome.id)
 
 ## How to run the test
 ### Preparation
-1. Copy file `.env.example` to `.env`.
+1. Copy file `.env.test.example` to `.env.test`.
+2. Set the environment variable value in `.env.test` if necessary.
+3. (If not yet done in the app run preparation) Install Golang dependency using command `go mod tidy`.
 ### Run
 1. Run command `go test ./... -count 1 -p 1`.
 
