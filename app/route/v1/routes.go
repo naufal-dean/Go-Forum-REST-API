@@ -28,7 +28,7 @@ func Setup(a *core.App) {
 
 		// Auth routes
 		v1AuthR.Handle("/logout", auth.Logout(a)).Methods("POST")
-		v1AuthR.Handle("/profile", auth.Profile(a)).Methods("POST")
+		v1AuthR.Handle("/profile", auth.Profile(a)).Methods("GET")
 
 		// User resource routes
 		usersR := v1AuthR.PathPrefix("/users").Subrouter()
