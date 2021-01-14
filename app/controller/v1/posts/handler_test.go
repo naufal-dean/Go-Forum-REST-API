@@ -5,9 +5,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
+	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/test"
+	"gorm.io/gorm"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -78,17 +80,27 @@ func TestGetOne(t *testing.T) {
 		// Check status code
 		assert.Equal(t, tc.code, rr.Code, "wrong response status code")
 
-		// Check response body
-		//var posts []orm.Post
-		//err = json.Unmarshal([]byte(rr.Body.String()), &posts)
-		//if err != nil {
-		//	t.Fatal("can not parse response body as json")
-		//}
-		//assert.Equal(t, expectedPosts, posts, "wrong response body")
+		if rr.Code == http.StatusOK {
+			// Get expected post from database
+			var expectedPost orm.Post
+			at.DB.Where("id = ?", tc.postID).Find(&expectedPost)
+
+			// Check response body
+			var post orm.Post
+			err = json.Unmarshal([]byte(rr.Body.String()), &post)
+			if err != nil {
+				t.Fatal("can not parse response body as json")
+			}
+			assert.Equal(t, expectedPost, post, "wrong response body")
+		}
 	}
 
 	teardown()
 }
+
+var createTestTitle = "Created Test"
+var createTestContent = "Created Test Content"
+var createTestThrID = uint(1)
 
 var createTests = []struct {
 	auth    bool
@@ -98,7 +110,7 @@ var createTests = []struct {
 	{
 		// succeed
 		true,
-		`{"title": "Created Test", "content": "Created Test Content", "thread_id": 1}`,
+		fmt.Sprintf(`{"title": "%s", "content": "%s", "thread_id": %d}`, createTestTitle, createTestContent, createTestThrID),
 		http.StatusCreated,
 	},
 	{
@@ -174,13 +186,18 @@ func TestCreate(t *testing.T) {
 			if err != nil {
 				t.Fatal("can not parse response body as json")
 			}
-			assert.Equal(t, "Created Test", post.Title)
-			assert.Equal(t, "Created Test Content", post.Content)
-			assert.Equal(t, uint(1), post.ThreadID)
+			assert.Equal(t, createTestTitle, post.Title)
+			assert.Equal(t, createTestContent, post.Content)
+			assert.Equal(t, createTestThrID, post.ThreadID)
+			assert.Equal(t, uint(1), post.UserID)
 
 			// Check database record exists
-			err = at.DB.Where("id = ?", post.ID).First(&orm.Post{}).Error
-			assert.Nil(t, err)
+			var expectedPost orm.Post
+			at.DB.Where("id = ?", post.ID).First(&expectedPost)
+			assert.Equal(t, expectedPost.Title, post.Title, "wrong response body")
+			assert.Equal(t, expectedPost.Content, post.Content, "wrong response body")
+			assert.Equal(t, expectedPost.ThreadID, post.ThreadID, "wrong response body")
+			assert.Equal(t, expectedPost.UserID, post.UserID, "wrong response body")
 		}
 	}
 
@@ -224,10 +241,20 @@ func TestDelete(t *testing.T) {
 
 		// Check status code
 		assert.Equal(t, tc.code, rr.Code, "wrong response status code")
+
+		if rr.Code == http.StatusNoContent {
+			// Check database
+			err = at.DB.Where("id = ?", tc.postID).First(&orm.Post{}).Error
+			assert.NotNil(t, err, "record not deleted")
+			assert.True(t, errors.Is(err, gorm.ErrRecordNotFound), "record not deleted")
+		}
 	}
 
 	teardown()
 }
+
+var updateTestTitle = "Updated Test"
+var updateTestContent = "Updated Test Content"
 
 var updateTests = []struct {
 	auth    bool
@@ -239,7 +266,7 @@ var updateTests = []struct {
 		// all field is optional on update, test full field
 		true,
 		"1",
-		`{"title": "Updated Test", "content": "Updated Test Content"}`,
+		fmt.Sprintf(`{"title": "%s", "content": "%s"}`, updateTestTitle, updateTestContent),
 		http.StatusOK,
 	},
 	{
@@ -301,6 +328,23 @@ func TestUpdate(t *testing.T) {
 
 		// Check status code
 		assert.Equal(t, tc.code, rr.Code, "wrong response status code")
+
+		if rr.Code == http.StatusOK {
+			// Check body
+			var post orm.Post
+			err = json.Unmarshal([]byte(rr.Body.String()), &post)
+			if err != nil {
+				t.Fatal("can not parse response body as json")
+			}
+			assert.Equal(t, updateTestTitle, post.Title)
+			assert.Equal(t, updateTestContent, post.Content)
+
+			// Check database record
+			var expectedPost orm.Post
+			at.DB.Where("id = ?", post.ID).First(&expectedPost)
+			assert.Equal(t, expectedPost.Title, post.Title, "wrong response body")
+			assert.Equal(t, expectedPost.Content, post.Content, "wrong response body")
+		}
 	}
 
 	teardown()

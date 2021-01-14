@@ -2,7 +2,9 @@ package auth
 
 import (
 	"bytes"
+	"encoding/json"
 	"github.com/stretchr/testify/assert"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/test"
 	"net/http"
 	"net/http/httptest"
@@ -140,6 +142,21 @@ func TestProfile(t *testing.T) {
 
 		// Check status code
 		assert.Equal(t, tc.code, rr.Code, "wrong response status code")
+
+		if rr.Code == http.StatusOK {
+			// Get expected user from database
+			var expectedUser orm.User
+			at.DB.Where("id = ?", tc.userID).Find(&expectedUser)
+
+			// Check response body
+			var user orm.User
+			err = json.Unmarshal([]byte(rr.Body.String()), &user)
+			if err != nil {
+				t.Fatal("can not parse response body as json")
+			}
+			assert.Equal(t, expectedUser.Email, user.Email, "wrong response body")
+			assert.Equal(t, expectedUser.Name, user.Name, "wrong response body")
+		}
 	}
 
 	teardown()

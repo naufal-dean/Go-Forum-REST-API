@@ -5,9 +5,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
+	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/test"
+	"gorm.io/gorm"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -17,8 +19,8 @@ func TestGetAll(t *testing.T) {
 	setup()
 
 	// Get expected threads from database
-	var expectedThread []orm.Thread
-	at.DB.Find(&expectedThread)
+	var expectedThreads []orm.Thread
+	at.DB.Find(&expectedThreads)
 
 	// Create handler
 	req, err := http.NewRequest("GET", "/api/v1/threads", nil)
@@ -40,7 +42,7 @@ func TestGetAll(t *testing.T) {
 	if err != nil {
 		t.Fatal("can not parse response body as json")
 	}
-	assert.Equal(t, expectedThread, threads, "wrong response body")
+	assert.Equal(t, expectedThreads, threads, "wrong response body")
 
 	teardown()
 }
@@ -78,17 +80,26 @@ func TestGetOne(t *testing.T) {
 		// Check status code
 		assert.Equal(t, tc.code, rr.Code, "wrong response status code")
 
-		// Check response body
-		//var threads []orm.Thread
-		//err = json.Unmarshal([]byte(rr.Body.String()), &threads)
-		//if err != nil {
-		//	t.Fatal("can not parse response body as json")
-		//}
-		//assert.Equal(t, expectedThread, threads, "wrong response body")
+		if rr.Code == http.StatusOK {
+			// Get expected thread from database
+			var expectedThread orm.Thread
+			at.DB.Where("id = ?", tc.threadID).Find(&expectedThread)
+
+			// Check response body
+			var thread orm.Thread
+			err = json.Unmarshal([]byte(rr.Body.String()), &thread)
+			if err != nil {
+				t.Fatal("can not parse response body as json")
+			}
+			assert.Equal(t, expectedThread, thread, "wrong response body")
+		}
 	}
 
 	teardown()
 }
+
+var createTestName = "Created Test Thread"
+var createTestDesc = "Created Test Thread Description"
 
 var createTests = []struct {
 	auth    bool
@@ -98,7 +109,7 @@ var createTests = []struct {
 	{
 		// succeed
 		true,
-		`{"name": "Created Test Thread", "description": "Created Test Thread Description"}`,
+		fmt.Sprintf(`{"name": "%s", "description": "%s"}`, createTestName, createTestDesc),
 		http.StatusCreated,
 	},
 	{
@@ -162,11 +173,16 @@ func TestCreate(t *testing.T) {
 			if err != nil {
 				t.Fatal("can not parse response body as json")
 			}
-			assert.Equal(t, "Created Test Thread", thread.Name)
+			assert.Equal(t, createTestName, thread.Name)
+			assert.Equal(t, createTestDesc, thread.Description)
+			assert.Equal(t, uint(1), thread.UserID)
 
 			// Check database record exists
-			err = at.DB.Where("id = ?", thread.ID).First(&orm.Thread{}).Error
-			assert.Nil(t, err)
+			var expectedThread orm.Thread
+			at.DB.Where("id = ?", thread.ID).First(&expectedThread)
+			assert.Equal(t, expectedThread.Name, thread.Name, "wrong response body")
+			assert.Equal(t, expectedThread.Description, thread.Description, "wrong response body")
+			assert.Equal(t, expectedThread.UserID, thread.UserID, "wrong response body")
 		}
 	}
 
@@ -210,10 +226,20 @@ func TestDelete(t *testing.T) {
 
 		// Check status code
 		assert.Equal(t, tc.code, rr.Code, "wrong response status code")
+
+		if rr.Code == http.StatusNoContent {
+			// Check database
+			err = at.DB.Where("id = ?", tc.threadID).First(&orm.Thread{}).Error
+			assert.NotNil(t, err, "record not deleted")
+			assert.True(t, errors.Is(err, gorm.ErrRecordNotFound), "record not deleted")
+		}
 	}
 
 	teardown()
 }
+
+var updateTestName = "Updated Test Thread"
+var updateTestDesc = "Updated Test Thread Description"
 
 var updateTests = []struct {
 	auth     bool
@@ -225,7 +251,7 @@ var updateTests = []struct {
 		// all field is optional on update, test full body
 		true,
 		"1",
-		`{"name": "Updated Test Thread", "description": "Updated Test Thread Description"}`,
+		fmt.Sprintf(`{"name": "%s", "description": "%s"}`, updateTestName, updateTestDesc),
 		http.StatusOK,
 	},
 	{
@@ -287,6 +313,23 @@ func TestUpdate(t *testing.T) {
 
 		// Check status code
 		assert.Equal(t, tc.code, rr.Code, "wrong response status code")
+
+		if rr.Code == http.StatusOK {
+			// Check body
+			var thread orm.Thread
+			err = json.Unmarshal([]byte(rr.Body.String()), &thread)
+			if err != nil {
+				t.Fatal("can not parse response body as json")
+			}
+			assert.Equal(t, updateTestName, thread.Name)
+			assert.Equal(t, updateTestDesc, thread.Description)
+
+			// Check database record
+			var expectedThread orm.Thread
+			at.DB.Where("id = ?", thread.ID).First(&expectedThread)
+			assert.Equal(t, expectedThread.Name, thread.Name, "wrong response body")
+			assert.Equal(t, expectedThread.Description, thread.Description, "wrong response body")
+		}
 	}
 
 	teardown()
@@ -324,6 +367,20 @@ func TestGetPosts(t *testing.T) {
 
 		// Check status code
 		assert.Equal(t, tc.code, rr.Code, "wrong response status code")
+
+		if rr.Code == http.StatusOK {
+			// Get expected thread's posts from database
+			var expectedPosts []orm.Post
+			at.DB.Where("thread_id = ?", tc.threadID).Find(&expectedPosts)
+
+			// Check response body
+			var posts []orm.Post
+			err = json.Unmarshal([]byte(rr.Body.String()), &posts)
+			if err != nil {
+				t.Fatal("can not parse response body as json")
+			}
+			assert.Equal(t, expectedPosts, posts, "wrong response body")
+		}
 	}
 
 	teardown()
