@@ -2,10 +2,13 @@ package users
 
 import (
 	"github.com/gorilla/mux"
+	"github.com/pkg/errors"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/util"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/cerror"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
+	"gorm.io/gorm"
 	"net/http"
 )
 
@@ -25,10 +28,17 @@ func GetPosts(a *core.App) http.Handler {
 		}
 
 		// Get records
-		var posts []orm.Post
-		a.DB.Where("user_id = ?", id).Find(&posts)
+		var user orm.User
+		if err := a.DB.Preload("Posts").Where("id = ?", id).First(&user).Error; err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				response.Error(w, http.StatusNotFound, "User not found")
+				return
+			} else {
+				panic(&cerror.DatabaseError{DBErr: err})
+			}
+		}
 
 		// Succeed
-		response.JSON(w, http.StatusOK, posts)
+		response.JSON(w, http.StatusOK, user.Posts)
 	})
 }
