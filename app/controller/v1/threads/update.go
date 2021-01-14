@@ -15,7 +15,8 @@ import (
 )
 
 type UpdateInput struct {
-	Name string `json:"name"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
 }
 
 // @Title Update a thread.
@@ -69,7 +70,7 @@ func Update(a *core.App) http.Handler {
 		}
 
 		// Update record
-		a.DB.Model(&thread).Updates(orm.Thread{Name: input.Name})
+		a.DB.Model(&thread).Updates(orm.Thread{Name: input.Name, Description: input.Description})
 
 		// Succeed
 		response.JSON(w, http.StatusOK, thread)

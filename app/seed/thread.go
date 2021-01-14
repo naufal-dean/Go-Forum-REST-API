@@ -20,8 +20,9 @@ func ThreadRun(db *gorm.DB) {
 	for i := 0; i < 25; i++ {
 		// Create empty object
 		threads = append(threads, orm.Thread{
-			Name:   faker.Word(),
-			UserID: userIDs[rand.Intn(len(userIDs))],
+			Name:        faker.Word(),
+			Description: faker.Sentence(),
+			UserID:      userIDs[rand.Intn(len(userIDs))],
 		})
 	}
 

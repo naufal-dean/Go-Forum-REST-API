@@ -98,7 +98,7 @@ var createTests = []struct {
 	{
 		// succeed
 		true,
-		`{"name": "Created Test Thread"}`,
+		`{"name": "Created Test Thread", "description": "Created Test Thread Description"}`,
 		http.StatusCreated,
 	},
 	{
@@ -122,7 +122,7 @@ var createTests = []struct {
 	{
 		// token claims not set
 		false,
-		`{"name": "Created Test Thread"}`,
+		`{"name": "Created Test Thread", "description": "Created Test Thread Description"}`,
 		http.StatusUnauthorized,
 	},
 	{
@@ -222,10 +222,17 @@ var updateTests = []struct {
 	code     int
 }{
 	{
+		// all field is optional on update, test full body
+		true,
+		"1",
+		`{"name": "Updated Test Thread", "description": "Updated Test Thread Description"}`,
+		http.StatusOK,
+	},
+	{
 		// all field is optional on update, test empty json
 		true,
 		"1",
-		`{"name": "Updated Test Thread"}`,
+		`{}`,
 		http.StatusOK,
 	},
 	{
@@ -243,7 +250,7 @@ var updateTests = []struct {
 		http.StatusUnauthorized,
 	},
 	{
-		// token claims not set
+		// resource not exists
 		true,
 		"1000",
 		`{"name": "Updated Test Thread"}`,

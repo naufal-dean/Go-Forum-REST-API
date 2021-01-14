@@ -236,10 +236,17 @@ var updateTests = []struct {
 	code    int
 }{
 	{
-		// all field is optional on update, test empty json
+		// all field is optional on update, test full field
 		true,
 		"1",
 		`{"title": "Updated Test", "content": "Updated Test Content"}`,
+		http.StatusOK,
+	},
+	{
+		// all field is optional on update, test empty json
+		true,
+		"1",
+		`{}`,
 		http.StatusOK,
 	},
 	{
@@ -250,7 +257,7 @@ var updateTests = []struct {
 		http.StatusUnprocessableEntity,
 	},
 	{
-		// all field is optional on update, test empty json
+		// resource not exists
 		true,
 		"1000",
 		`{"title": "Updated Test", "content": "Updated Test Content"}`,

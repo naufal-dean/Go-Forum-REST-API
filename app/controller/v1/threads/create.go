@@ -11,7 +11,8 @@ import (
 )
 
 type CreateInput struct {
-	Name string `json:"name" validate:"required"`
+	Name        string `json:"name" validate:"required"`
+	Description string `json:"description" validate:"required"`
 }
 
 // @Title Create a thread.
@@ -48,7 +49,7 @@ func Create(a *core.App) http.Handler {
 		}
 
 		// Create record
-		thread := orm.Thread{Name: input.Name, UserID: claims.UserID}
+		thread := orm.Thread{Name: input.Name, Description: input.Description, UserID: claims.UserID}
 		if err := a.DB.Create(&thread).Error; err != nil {
 			response.Error(w, http.StatusInternalServerError, "Create thread failed")
 			return

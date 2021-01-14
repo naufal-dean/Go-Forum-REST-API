@@ -18,22 +18,27 @@ var UsersData = []orm.User{
 var ThreadsData = []orm.Thread{
 	{
 		Name:   "Thread 1",
+		Description: "Description 1",
 		UserID: 1,
 	},
 	{
 		Name:   "Thread 2",
+		Description: "Description 1",
 		UserID: 1,
 	},
 	{
 		Name:   "Thread 3",
+		Description: "Description 1",
 		UserID: 2,
 	},
 	{
 		Name:   "Thread 4",
+		Description: "Description 1",
 		UserID: 2,
 	},
 	{
 		Name:   "Thread 5",
+		Description: "Description 1",
 		UserID: 2,
 	},
 }
