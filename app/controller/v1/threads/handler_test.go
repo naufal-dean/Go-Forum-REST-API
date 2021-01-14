@@ -150,12 +150,10 @@ func TestCreate(t *testing.T) {
 		handler := Create(at)
 
 		// Serve http
-		var threads []orm.Thread
-		at.DB.Find(&threads)
 		handler.ServeHTTP(rr, req)
 
 		// Check status code
-		assert.Equal(t, tc.code, rr.Code, &threads)
+		assert.Equal(t, tc.code, rr.Code, "wrong response status code")
 
 		if rr.Code == http.StatusCreated {
 			// Check body

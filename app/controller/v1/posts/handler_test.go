@@ -137,6 +137,12 @@ var createTests = []struct {
 		`{}`,
 		http.StatusBadRequest,
 	},
+	{
+		// thread referenced by thread_id not found
+		true,
+		`{"title": "Created Test", "content": "Created Test Content", "thread_id": 100}`,
+		http.StatusForbidden,
+	},
 }
 
 func TestCreate(t *testing.T) {
@@ -156,12 +162,10 @@ func TestCreate(t *testing.T) {
 		handler := Create(at)
 
 		// Serve http
-		var posts []orm.Post
-		at.DB.Find(&posts)
 		handler.ServeHTTP(rr, req)
 
 		// Check status code
-		assert.Equal(t, tc.code, rr.Code, &posts)
+		assert.Equal(t, tc.code, rr.Code, "wrong response status code")
 
 		if rr.Code == http.StatusCreated {
 			// Check body
