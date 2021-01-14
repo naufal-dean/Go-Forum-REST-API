@@ -279,3 +279,40 @@ func TestUpdate(t *testing.T) {
 
 	teardown()
 }
+
+var getPostsTests = []struct {
+	threadID string
+	code     int
+}{
+	{"1", http.StatusOK},                             // succeed
+	{"3", http.StatusOK},                             // succeed
+	{"6", http.StatusNotFound},                       // non existent resource
+	{"", http.StatusUnprocessableEntity},             // malformed input id
+	{"' or true --", http.StatusUnprocessableEntity}, // malformed input id
+	{"__", http.StatusUnprocessableEntity},           // malformed input id
+	{"one", http.StatusUnprocessableEntity},          // malformed input id
+}
+
+func TestGetPosts(t *testing.T) {
+	setup()
+
+	// Do test
+	for _, tc := range getPostsTests {
+		// Create handler
+		req, err := http.NewRequest("GET", fmt.Sprintf("/api/v1/threads/%v", tc.threadID), nil)
+		if err != nil {
+			t.Fatal(err)
+		}
+		req = mux.SetURLVars(req, map[string]string{"id": tc.threadID})
+		rr := httptest.NewRecorder()
+		handler := GetPosts(at)
+
+		// Serve http
+		handler.ServeHTTP(rr, req)
+
+		// Check status code
+		assert.Equal(t, tc.code, rr.Code, "wrong response status code")
+	}
+
+	teardown()
+}
