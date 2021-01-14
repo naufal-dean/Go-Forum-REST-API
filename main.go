@@ -6,6 +6,7 @@
 // @ContactURL https://github.com/naufal-dean
 // @LicenseName MIT
 // @LicenseURL https://en.wikipedia.org/wiki/MIT_License
+// @Server http://localhost:8080 Local
 // @Security AuthorizationHeader read write
 // @SecurityScheme AuthorizationHeader apiKey header Authorization
 package main

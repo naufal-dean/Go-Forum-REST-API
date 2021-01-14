@@ -10,6 +10,7 @@ import (
 
 // @Title Get all threads.
 // @Description Get all thread in database.
+// @Param  search  query  string  optional  "Search query for thread name."
 // @Success  200  array  []orm.Thread  "Array of Thread JSON"
 // @Resource threads
 // @Route /api/v1/threads [get]

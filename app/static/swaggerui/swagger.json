@@ -16,8 +16,8 @@
   },
   "servers": [
     {
-      "url": "/",
-      "description": "Default Server URL"
+      "url": "http://localhost:8080",
+      "description": " Local"
     }
   ],
   "paths": {
@@ -159,7 +159,19 @@
           "posts"
         ],
         "summary": "Get all posts.",
-        "description": " Get all post in database."
+        "description": " Get all post in database.",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Search query for post title.",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "description": "Search query for post title."
+            }
+          }
+        ]
       },
       "post": {
         "responses": {
@@ -545,6 +557,9 @@
                       "name": {
                         "type": "string"
                       },
+                      "description": {
+                        "type": "string"
+                      },
                       "user_id": {
                         "type": "integer"
                       },
@@ -570,7 +585,19 @@
           "threads"
         ],
         "summary": "Get all threads.",
-        "description": " Get all thread in database."
+        "description": " Get all thread in database.",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Search query for thread name.",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "description": "Search query for thread name."
+            }
+          }
+        ]
       },
       "post": {
         "responses": {
@@ -1072,6 +1099,9 @@
                       "name": {
                         "type": "string"
                       },
+                      "description": {
+                        "type": "string"
+                      },
                       "user_id": {
                         "type": "integer"
                       },
@@ -1205,6 +1235,9 @@
         "properties": {
           "name": {
             "type": "string"
+          },
+          "description": {
+            "type": "string"
           }
         }
       },
@@ -1212,6 +1245,9 @@
         "type": "object",
         "properties": {
           "name": {
+            "type": "string"
+          },
+          "description": {
             "type": "string"
           }
         }
@@ -1264,6 +1300,9 @@
         "type": "object",
         "properties": {
           "name": {
+            "type": "string"
+          },
+          "description": {
             "type": "string"
           },
           "user_id": {
