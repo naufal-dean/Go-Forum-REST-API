@@ -2,11 +2,14 @@ package posts
 
 import (
 	"encoding/json"
+	"github.com/pkg/errors"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/auth"
+	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/cerror"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
 	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response/data"
+	"gorm.io/gorm"
 	"net/http"
 )
 
@@ -46,6 +49,16 @@ func Create(a *core.App) http.Handler {
 		if !ok {
 			response.Error(w, http.StatusUnauthorized, "No token claims found")
 			return
+		}
+
+		// Check the referenced thread
+		if err := a.DB.Where("id = ?", input.ThreadID).First(&orm.Thread{}).Error; err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				response.Error(w, http.StatusForbidden, "Thread referenced by 'thread_id' is not exists")
+				return
+			} else {
+				panic(&cerror.DatabaseError{DBErr: err})
+			}
 		}
 
 		// Create record
