@@ -36,7 +36,7 @@ Naufal Dean Anugrah - [naufal-dean](https://github.com/naufal-dean)
 1. Run command `go test ./... -count 1 -p 1`.
 
 ## API routes
-After the app is running. See the routes documentation in [localhost:8080/api/docs/](localhost:8080/api/docs/)
+After the app is running. See the routes documentation in [localhost:8080/api/docs/](localhost:8080/api/docs/).
 
 ## Testing design
 The test design is following the Golang convention. Test file is placed in the same package with the tested file
