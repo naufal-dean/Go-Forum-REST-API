@@ -1,10 +1,10 @@
-# Onboarding Dean
+# Go Forum REST API
 
 ## Description
 This repository contains a Golang RESTful API used for a forum activities. It provides authentication using JWT, CRUD for Thread, and CRUD for Post.
 
 ## Author
-Naufal Dean Anugrah - [naufal.dean@pinhome.id](naufal.dean@pinhome.id)
+Naufal Dean Anugrah - [naufal-dean](https://github.com/naufal-dean)
 
 ## Dependencies
 1. Golang (tested in `go version go1.15.6 windows/amd64`)
@@ -88,7 +88,7 @@ each resource generally there are 5 routes (create, get all, get one, update, de
 method and some using id path parameter. The details can be seen in the API documentation.
 
 The handler is inside the `/app/controller`. The dependency (database connection, validate object) is wrapped in
-`*core.App` struct and passed to the handler via dependency injection. That process is executed in the 
+`*core.App` struct and passed to the handler via dependency injection. That process is executed in the
 `app/init.go` file.
 
 ## DTO vs domain models
@@ -99,3 +99,7 @@ the API documentations in the `Schemas` part.
 Domain models is can implements some logic, for example that implemented as methods. The domain models in this app is
 the Golang structure used for gorm for example. In the `orm.User` model there are `PasswordValid` method to check is
 the supplied password valid and `BeforeCreate` hook that hash the user password before saved to the database.
+
+## Credits
+- Pinhome CTO, Mr. Ahmed Aljunied
+- The Hydra Squad ([Hasan](https://github.com/muhammadhasan01), [Naufal](https://github.com/primayoriko), [Taufiq](https://github.com/taufiqhusada))
