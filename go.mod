@@ -1,4 +1,4 @@
-module gitlab.com/pinvest/internships/hydra/onboarding-dean
+module github.com/naufal-dean/go-forum-rest-api
 
 go 1.15
 

@@ -2,8 +2,8 @@ package test
 
 import (
 	"github.com/pkg/errors"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
+	"github.com/naufal-dean/go-forum-rest-api/app/core"
+	"github.com/naufal-dean/go-forum-rest-api/app/model/orm"
 	"gorm.io/gorm"
 )
 

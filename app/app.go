@@ -2,7 +2,7 @@ package app
 
 import (
 	"fmt"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
+	"github.com/naufal-dean/go-forum-rest-api/app/core"
 	"net/http"
 )
 

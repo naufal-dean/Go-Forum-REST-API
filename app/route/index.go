@@ -3,11 +3,11 @@ package route
 import (
 	"github.com/pkg/errors"
 	"github.com/rakyll/statik/fs"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/controller"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/middleware"
-	v1 "gitlab.com/pinvest/internships/hydra/onboarding-dean/app/route/v1"
-	_ "gitlab.com/pinvest/internships/hydra/onboarding-dean/app/static/swaggerui/statik"
+	"github.com/naufal-dean/go-forum-rest-api/app/controller"
+	"github.com/naufal-dean/go-forum-rest-api/app/core"
+	"github.com/naufal-dean/go-forum-rest-api/app/middleware"
+	v1 "github.com/naufal-dean/go-forum-rest-api/app/route/v1"
+	_ "github.com/naufal-dean/go-forum-rest-api/app/static/swaggerui/statik"
 	"net/http"
 )
 

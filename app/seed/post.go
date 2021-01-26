@@ -3,7 +3,7 @@ package seed
 import (
 	"fmt"
 	"github.com/bxcodec/faker/v3"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
+	"github.com/naufal-dean/go-forum-rest-api/app/model/orm"
 	"gorm.io/gorm"
 	"math/rand"
 )

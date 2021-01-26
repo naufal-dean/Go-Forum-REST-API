@@ -2,7 +2,7 @@ package orm
 
 import (
 	"github.com/pkg/errors"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/hash"
+	"github.com/naufal-dean/go-forum-rest-api/app/lib/hash"
 	"gorm.io/gorm"
 )
 

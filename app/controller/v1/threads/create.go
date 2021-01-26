@@ -2,11 +2,11 @@ package threads
 
 import (
 	"encoding/json"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/auth"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response/data"
+	"github.com/naufal-dean/go-forum-rest-api/app/core"
+	"github.com/naufal-dean/go-forum-rest-api/app/lib/auth"
+	"github.com/naufal-dean/go-forum-rest-api/app/model/orm"
+	"github.com/naufal-dean/go-forum-rest-api/app/response"
+	"github.com/naufal-dean/go-forum-rest-api/app/response/data"
 	"net/http"
 )
 

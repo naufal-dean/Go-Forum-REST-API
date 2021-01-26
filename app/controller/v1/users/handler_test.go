@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/stretchr/testify/assert"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
+	"github.com/naufal-dean/go-forum-rest-api/app/model/orm"
 	"net/http"
 	"net/http/httptest"
 	"testing"

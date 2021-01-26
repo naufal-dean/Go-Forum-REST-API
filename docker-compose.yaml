@@ -2,11 +2,11 @@ version: '3'
 
 services:
 
-  onboarding-dean-database:
+  go-forum-database:
     image: "postgres"
-    container_name: onboarding-dean-database
+    container_name: go-forum-database
     volumes:
-      - onboarding-dean-data:/var/lib/postgresql/data
+      - go-forum-data:/var/lib/postgresql/data
     ports:
       - 5432:5432
     environment:
@@ -19,18 +19,18 @@ services:
       timeout: 5s
       retries: 5
 
-  onboarding-dean-app:
+  go-forum-app:
     build: .
-    container_name: onboarding-dean-app
+    container_name: go-forum-app
     environment:
-      - DB_HOST=onboarding-dean-database
+      - DB_HOST=go-forum-database
     ports:
       - 8080:8080
     depends_on:
-      onboarding-dean-database:
+      go-forum-database:
         condition: service_healthy
     links:
-      - onboarding-dean-database
+      - go-forum-database
 
 volumes:
-  onboarding-dean-data:
+  go-forum-data:

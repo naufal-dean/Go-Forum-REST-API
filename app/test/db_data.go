@@ -1,6 +1,6 @@
 package test
 
-import "gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
+import "github.com/naufal-dean/go-forum-rest-api/app/model/orm"
 
 var UsersData = []orm.User{
 	{

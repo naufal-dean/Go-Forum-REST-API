@@ -2,7 +2,7 @@ package test
 
 import (
 	"context"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/lib/auth"
+	"github.com/naufal-dean/go-forum-rest-api/app/lib/auth"
 	"net/http"
 )
 

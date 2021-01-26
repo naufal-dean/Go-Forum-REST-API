@@ -1,12 +1,12 @@
 package v1
 
 import (
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/controller/v1/auth"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/controller/v1/posts"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/controller/v1/threads"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/controller/v1/users"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/middleware"
+	"github.com/naufal-dean/go-forum-rest-api/app/controller/v1/auth"
+	"github.com/naufal-dean/go-forum-rest-api/app/controller/v1/posts"
+	"github.com/naufal-dean/go-forum-rest-api/app/controller/v1/threads"
+	"github.com/naufal-dean/go-forum-rest-api/app/controller/v1/users"
+	"github.com/naufal-dean/go-forum-rest-api/app/core"
+	"github.com/naufal-dean/go-forum-rest-api/app/middleware"
 )
 
 func Setup(a *core.App) {

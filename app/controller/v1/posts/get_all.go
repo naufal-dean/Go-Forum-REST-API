@@ -2,9 +2,9 @@ package posts
 
 import (
 	"fmt"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/response"
+	"github.com/naufal-dean/go-forum-rest-api/app/core"
+	"github.com/naufal-dean/go-forum-rest-api/app/model/orm"
+	"github.com/naufal-dean/go-forum-rest-api/app/response"
 	"net/http"
 )
 

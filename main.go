@@ -1,5 +1,5 @@
 // @Version 1.0.0
-// @Title Onboarding Dean API
+// @Title Go Forum API
 // @Description API created for onboarding process in Pinhome.
 // @ContactName Naufal Dean A
 // @ContactEmail naufal.dean@gmail.com
@@ -14,7 +14,7 @@ package main
 import (
 	"flag"
 	"github.com/joho/godotenv"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app"
+	"github.com/naufal-dean/go-forum-rest-api/app"
 	"log"
 )
 

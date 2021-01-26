@@ -3,8 +3,8 @@ package posts
 import (
 	"github.com/joho/godotenv"
 	log "github.com/sirupsen/logrus"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/test"
+	"github.com/naufal-dean/go-forum-rest-api/app/core"
+	"github.com/naufal-dean/go-forum-rest-api/app/test"
 	"os"
 	"testing"
 )

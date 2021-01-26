@@ -5,7 +5,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/gorilla/mux"
 	"github.com/pkg/errors"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/core"
+	"github.com/naufal-dean/go-forum-rest-api/app/core"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"os"

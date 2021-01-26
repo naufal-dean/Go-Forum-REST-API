@@ -2,7 +2,7 @@ package seed
 
 import (
 	"fmt"
-	"gitlab.com/pinvest/internships/hydra/onboarding-dean/app/model/orm"
+	"github.com/naufal-dean/go-forum-rest-api/app/model/orm"
 	"gorm.io/gorm"
 )
 
