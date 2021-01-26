@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Onboarding Dean API",
+    "title": "Go Forum API",
     "description": "API created for onboarding process in Pinhome.",
     "contact": {
       "name": "Naufal Dean A",
@@ -29,7 +29,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.auth.LoginSuccessResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.controller.v1.auth.LoginSuccessResponse"
                 }
               }
             }
@@ -39,7 +39,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.data.ValidationErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.data.ValidationErrorResponse"
                 }
               }
             }
@@ -49,7 +49,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -59,7 +59,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -74,7 +74,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.auth.LoginInput"
+                "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.controller.v1.auth.LoginInput"
               }
             }
           },
@@ -90,7 +90,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.SuccessResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.SuccessResponse"
                 }
               }
             }
@@ -100,7 +100,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -180,7 +180,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.Post"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.model.orm.Post"
                 }
               }
             }
@@ -190,7 +190,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.data.ValidationErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.data.ValidationErrorResponse"
                 }
               }
             }
@@ -200,7 +200,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -210,7 +210,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -220,7 +220,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -235,7 +235,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.posts.CreateInput"
+                "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.controller.v1.posts.CreateInput"
               }
             }
           },
@@ -251,7 +251,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.Post"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.model.orm.Post"
                 }
               }
             }
@@ -261,7 +261,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -271,7 +271,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -303,7 +303,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.Post"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.model.orm.Post"
                 }
               }
             }
@@ -313,7 +313,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -323,7 +323,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -333,7 +333,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -343,7 +343,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -371,7 +371,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.posts.UpdateInput"
+                "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.controller.v1.posts.UpdateInput"
               }
             }
           }
@@ -394,7 +394,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -404,7 +404,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -414,7 +414,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -424,7 +424,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -458,7 +458,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.User"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.model.orm.User"
                 }
               }
             }
@@ -468,7 +468,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -489,7 +489,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.SuccessResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.SuccessResponse"
                 }
               }
             }
@@ -499,7 +499,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.data.ValidationErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.data.ValidationErrorResponse"
                 }
               }
             }
@@ -509,7 +509,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.data.ValidationErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.data.ValidationErrorResponse"
                 }
               }
             }
@@ -519,7 +519,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -534,7 +534,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.auth.RegisterInput"
+                "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.controller.v1.auth.RegisterInput"
               }
             }
           },
@@ -606,7 +606,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.Thread"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.model.orm.Thread"
                 }
               }
             }
@@ -616,7 +616,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.data.ValidationErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.data.ValidationErrorResponse"
                 }
               }
             }
@@ -626,7 +626,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -636,7 +636,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -651,7 +651,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.threads.CreateInput"
+                "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.controller.v1.threads.CreateInput"
               }
             }
           },
@@ -667,7 +667,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.Thread"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.model.orm.Thread"
                 }
               }
             }
@@ -677,7 +677,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -687,7 +687,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -719,7 +719,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.Post"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.model.orm.Post"
                 }
               }
             }
@@ -729,7 +729,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -739,7 +739,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -749,7 +749,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -759,7 +759,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -787,7 +787,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.threads.UpdateInput"
+                "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.controller.v1.threads.UpdateInput"
               }
             }
           }
@@ -810,7 +810,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -820,7 +820,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -830,7 +830,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -840,7 +840,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -912,7 +912,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -922,7 +922,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -956,7 +956,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.User"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.model.orm.User"
                 }
               }
             }
@@ -966,7 +966,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -976,7 +976,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -1048,7 +1048,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -1127,7 +1127,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -1137,7 +1137,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse"
+                  "$ref": "#/components/schemas/github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse"
                 }
               }
             }
@@ -1166,7 +1166,7 @@
   },
   "components": {
     "schemas": {
-      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.auth.LoginInput": {
+      "github.com.naufal-dean.go-forum-rest-api.app.controller.v1.auth.LoginInput": {
         "type": "object",
         "properties": {
           "email": {
@@ -1177,7 +1177,7 @@
           }
         }
       },
-      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.auth.LoginSuccessResponse": {
+      "github.com.naufal-dean.go-forum-rest-api.app.controller.v1.auth.LoginSuccessResponse": {
         "type": "object",
         "properties": {
           "token_type": {
@@ -1188,7 +1188,7 @@
           }
         }
       },
-      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.auth.RegisterInput": {
+      "github.com.naufal-dean.go-forum-rest-api.app.controller.v1.auth.RegisterInput": {
         "type": "object",
         "properties": {
           "email": {
@@ -1205,7 +1205,7 @@
           }
         }
       },
-      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.posts.CreateInput": {
+      "github.com.naufal-dean.go-forum-rest-api.app.controller.v1.posts.CreateInput": {
         "type": "object",
         "properties": {
           "title": {
@@ -1219,7 +1219,7 @@
           }
         }
       },
-      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.posts.UpdateInput": {
+      "github.com.naufal-dean.go-forum-rest-api.app.controller.v1.posts.UpdateInput": {
         "type": "object",
         "properties": {
           "title": {
@@ -1230,7 +1230,7 @@
           }
         }
       },
-      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.threads.CreateInput": {
+      "github.com.naufal-dean.go-forum-rest-api.app.controller.v1.threads.CreateInput": {
         "type": "object",
         "properties": {
           "name": {
@@ -1241,7 +1241,7 @@
           }
         }
       },
-      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.controller.v1.threads.UpdateInput": {
+      "github.com.naufal-dean.go-forum-rest-api.app.controller.v1.threads.UpdateInput": {
         "type": "object",
         "properties": {
           "name": {
@@ -1252,7 +1252,7 @@
           }
         }
       },
-      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.BaseModel": {
+      "github.com.naufal-dean.go-forum-rest-api.app.model.orm.BaseModel": {
         "type": "object",
         "properties": {
           "id": {
@@ -1268,7 +1268,7 @@
           }
         }
       },
-      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.Post": {
+      "github.com.naufal-dean.go-forum-rest-api.app.model.orm.Post": {
         "type": "object",
         "properties": {
           "title": {
@@ -1296,7 +1296,7 @@
           }
         }
       },
-      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.Thread": {
+      "github.com.naufal-dean.go-forum-rest-api.app.model.orm.Thread": {
         "type": "object",
         "properties": {
           "name": {
@@ -1321,7 +1321,7 @@
           }
         }
       },
-      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.model.orm.User": {
+      "github.com.naufal-dean.go-forum-rest-api.app.model.orm.User": {
         "type": "object",
         "properties": {
           "email": {
@@ -1343,7 +1343,7 @@
           }
         }
       },
-      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.ErrorResponse": {
+      "github.com.naufal-dean.go-forum-rest-api.app.response.ErrorResponse": {
         "type": "object",
         "properties": {
           "error": {
@@ -1354,7 +1354,7 @@
           }
         }
       },
-      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.SuccessResponse": {
+      "github.com.naufal-dean.go-forum-rest-api.app.response.SuccessResponse": {
         "type": "object",
         "properties": {
           "message": {
@@ -1362,7 +1362,7 @@
           }
         }
       },
-      "gitlab.com.pinvest.internships.hydra.onboarding-dean.app.response.data.ValidationErrorResponse": {
+      "github.com.naufal-dean.go-forum-rest-api.app.response.data.ValidationErrorResponse": {
         "type": "object",
         "properties": {
           "error": {
