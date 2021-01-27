@@ -12,10 +12,7 @@ import (
 var at *core.App
 
 func init() {
-	err := godotenv.Load("../../../../.test.env")
-	if err != nil {
-		log.Fatal("failed to load environment variable")
-	}
+	_ = godotenv.Load("../../../../.test.env")
 	a, err := test.NewTestApp()
 	if err != nil {
 		log.Fatal(err)
