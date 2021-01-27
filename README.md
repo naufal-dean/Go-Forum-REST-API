@@ -1,4 +1,5 @@
 # Go Forum REST API
+[![Build Status](https://travis-ci.com/naufal-dean/Go-Forum-REST-API.svg?branch=master)](https://travis-ci.com/naufal-dean/Go-Forum-REST-API)
 
 ## Description
 This repository contains a Golang RESTful API used for a forum activities. It provides authentication using JWT, CRUD for Thread, and CRUD for Post.
