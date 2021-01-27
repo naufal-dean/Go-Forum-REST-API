@@ -3,5 +3,11 @@ language: go
 go:
   - 1.15
 
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database go_forum_test;' -U postgres
+
 script:
   - go test ./... -count 1 -p 1
