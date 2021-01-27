@@ -106,7 +106,15 @@ func TestGetPosts(t *testing.T) {
 			if err != nil {
 				t.Fatal("can not parse response body as json")
 			}
-			assert.Equal(t, expectedPosts, posts, "wrong response body")
+
+			assert.Equal(t, len(expectedPosts), len(posts), "wrong response body")
+			for i := 0; i < len(expectedPosts); i++ {
+				assert.Equal(t, expectedPosts[i].ID, posts[i].ID, "wrong response body")
+				assert.Equal(t, expectedPosts[i].Title, posts[i].Title, "wrong response body")
+				assert.Equal(t, expectedPosts[i].Content, posts[i].Content, "wrong response body")
+				assert.Equal(t, expectedPosts[i].UserID, posts[i].UserID, "wrong response body")
+				assert.Equal(t, expectedPosts[i].ThreadID, posts[i].ThreadID, "wrong response body")
+			}
 		}
 	}
 
@@ -157,7 +165,14 @@ func TestGetThreads(t *testing.T) {
 			if err != nil {
 				t.Fatal("can not parse response body as json")
 			}
-			assert.Equal(t, expectedThreads, threads, "wrong response body")
+
+			assert.Equal(t, len(expectedThreads), len(threads), "wrong response body")
+			for i := 0; i < len(expectedThreads); i++ {
+				assert.Equal(t, expectedThreads[i].ID, threads[i].ID, "wrong response body")
+				assert.Equal(t, expectedThreads[i].Name, threads[i].Name, "wrong response body")
+				assert.Equal(t, expectedThreads[i].Description, threads[i].Description, "wrong response body")
+				assert.Equal(t, expectedThreads[i].UserID, threads[i].UserID, "wrong response body")
+			}
 		}
 	}
 
