@@ -14,10 +14,7 @@ import (
 )
 
 func init() {
-	err := godotenv.Load("../../../.test.env")
-	if err != nil {
-		log.Fatal("Failed to load environment variable")
-	}
+	_ = godotenv.Load("../../../.test.env")
 }
 
 func TestNewToken(t *testing.T) {
